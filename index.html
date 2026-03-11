@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Адал азамат" біртұтас тәрбие бағдарламасы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Химиялық декор */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .site-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .title {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #2d3e50;
+            text-shadow: 
+                0 0 10px #ffaa66,
+                0 0 20px #66ccff,
+                2px 2px 0 #ff99aa,
+                -2px -2px 0 #aaff99;
+            font-family: 'Trebuchet MS', 'Impact', sans-serif;
+            z-index: 10;
+            line-height: 1.2;
+        }
+
+        .circle-menu {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(3px);
+            border: 3px solid #ffffff;
+            box-shadow: 
+                0 0 0 4px rgba(255, 200, 150, 0.5),
+                0 0 40px rgba(100, 200, 255, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.8),
+                inset 0 0 15px #c0e0ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(90deg, transparent 49.5%, rgba(255, 220, 150, 0.3) 50%, transparent 50.5%),
+                              linear-gradient(0deg, transparent 49.5%, rgba(200, 150, 255, 0.3) 50%, transparent 50.5%);
+            background-size: 40px 40px, 40px 40px;
+        }
+
+        .center-emblem {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            border: 3px dashed #ffaa88;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 40px #ffddbb, inset 0 0 20px #ffffff;
+            backdrop-filter: blur(2px);
+            z-index: 5;
+            background-image: radial-gradient(circle at 30% 40%, rgba(255, 200, 100, 0.3) 5%, transparent 20%),
+                              radial-gradient(circle at 70% 60%, rgba(150, 100, 255, 0.3) 8%, transparent 25%);
+            overflow: hidden;
+        }
+
+        .center-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .center-emblem::after {
+            display: none;
+        }
+
+        .menu-item {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            backdrop-filter: blur(2px);
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+            box-shadow: 0 0 0 3px white, 0 0 30px currentColor, inset 0 0 15px white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 5px;
+            transition: 0.2s;
+            cursor: pointer;
+            text-shadow: 0 0 5px white;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.6) 3%, transparent 6%),
+                              radial-gradient(circle at 70% 60%, rgba(255, 255, 200, 0.5) 5%, transparent 10%);
+            border: 2px solid white;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+            box-shadow: 0 0 40px currentColor, inset 0 0 20px white;
+            border-color: #ffffcc;
+        }
+
+        /* Ашық түстер */
+        .menu-item:nth-child(1)  { background-color: #ccff99; border-color: #aaffaa; color: #226622; box-shadow: 0 0 30px #bbff88; }
+        .menu-item:nth-child(2)  { background-color: #99ccff; border-color: #aaaaff; color: #224466; box-shadow: 0 0 30px #99aaff; }
+        .menu-item:nth-child(3)  { background-color: #ff9999; border-color: #ffaaaa; color: #662222; box-shadow: 0 0 30px #ff8888; }
+        .menu-item:nth-child(4)  { background-color: #cc99ff; border-color: #cc88ff; color: #442266; box-shadow: 0 0 30px #bb88ff; }
+        .menu-item:nth-child(5)  { background-color: #ffcc99; border-color: #ffbb88; color: #664422; box-shadow: 0 0 30px #ffaa66; }
+        .menu-item:nth-child(6)  { background-color: #ccff99; border-color: #aaffaa; color: #226622; box-shadow: 0 0 30px #bbff88; }
+        .menu-item:nth-child(7)  { background-color: #99ccff; border-color: #aaaaff; color: #224466; box-shadow: 0 0 30px #99aaff; }
+        .menu-item:nth-child(8)  { background-color: #ff9999; border-color: #ffaaaa; color: #662222; box-shadow: 0 0 30px #ff8888; }
+        .menu-item:nth-child(9)  { background-color: #cc99ff; border-color: #cc88ff; color: #442266; box-shadow: 0 0 30px #bb88ff; }
+        .menu-item:nth-child(10) { background-color: #ffcc99; border-color: #ffbb88; color: #664422; box-shadow: 0 0 30px #ffaa66; }
+        .menu-item:nth-child(11) { background-color: #ccff99; border-color: #aaffaa; color: #226622; box-shadow: 0 0 30px #bbff88; }
+        .menu-item:nth-child(12) { background-color: #99ccff; border-color: #aaaaff; color: #224466; box-shadow: 0 0 30px #99aaff; }
+        .menu-item:nth-child(13) { background-color: #ff9999; border-color: #ffaaaa; color: #662222; box-shadow: 0 0 30px #ff8888; }
+
+        /* 13 пункт біркелкі шеңбер бойында (радиус 215px) */
+        .menu-item:nth-child(1)  { transform: rotate(-90deg) translate(215px) rotate(90deg); }
+        .menu-item:nth-child(2)  { transform: rotate(-62.3077deg) translate(215px) rotate(62.3077deg); }
+        .menu-item:nth-child(3)  { transform: rotate(-34.6154deg) translate(215px) rotate(34.6154deg); }
+        .menu-item:nth-child(4)  { transform: rotate(-6.9231deg) translate(215px) rotate(6.9231deg); }
+        .menu-item:nth-child(5)  { transform: rotate(20.7692deg) translate(215px) rotate(-20.7692deg); }
+        .menu-item:nth-child(6)  { transform: rotate(48.4615deg) translate(215px) rotate(-48.4615deg); }
+        .menu-item:nth-child(7)  { transform: rotate(76.1538deg) translate(215px) rotate(-76.1538deg); }
+        .menu-item:nth-child(8)  { transform: rotate(103.8462deg) translate(215px) rotate(-103.8462deg); }
+        .menu-item:nth-child(9)  { transform: rotate(131.5385deg) translate(215px) rotate(-131.5385deg); }
+        .menu-item:nth-child(10) { transform: rotate(159.2308deg) translate(215px) rotate(-159.2308deg); }
+        .menu-item:nth-child(11) { transform: rotate(186.9231deg) translate(215px) rotate(-186.9231deg); }
+        .menu-item:nth-child(12) { transform: rotate(214.6154deg) translate(215px) rotate(-214.6154deg); }
+        .menu-item:nth-child(13) { transform: rotate(242.3077deg) translate(215px) rotate(-242.3077deg); }
+
+        /* Жарқын декор элементтері */
+        .decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .decoration span {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.25;
+            color: #333;
+            user-select: none;
+            filter: drop-shadow(0 0 5px white);
+        }
+        .decoration span:nth-child(1) { left: 5%; top: 5%; color: #ff8866; }
+        .decoration span:nth-child(2) { right: 8%; top: 8%; color: #66aaff; }
+        .decoration span:nth-child(3) { left: 10%; bottom: 5%; color: #ffaa88; }
+        .decoration span:nth-child(4) { right: 12%; bottom: 5%; color: #88ffaa; }
+        .decoration span:nth-child(5) { left: 20%; top: 20%; content: "H₂SO₄"; font-size: 2.8rem; color: #ffaa55; }
+        .decoration span:nth-child(6) { right: 20%; top: 30%; content: "CH₄"; font-size: 2.8rem; color: #55aaff; }
+
+        /* ===== ТӨМЕНГІ ҚОСЫМША МӘЗІР (бір қатар) ===== */
+        .bottom-menu {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 1100px;
+            margin: 20px 10px 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(3px);
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 30px rgba(255, 200, 100, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .bottom-item {
+            flex: 0 1 auto;
+            min-width: 140px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 20px currentColor, inset 0 0 10px white;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: 0.2s;
+            cursor: pointer;
+            text-shadow: 0 0 5px white;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.7) 3%, transparent 30%);
+        }
+
+        .bottom-item:nth-child(1) { background-color: #ccff99; border-color: #aaffaa; color: #226622; box-shadow: 0 0 25px #bbff88; }
+        .bottom-item:nth-child(2) { background-color: #99ccff; border-color: #aaaaff; color: #224466; box-shadow: 0 0 25px #99aaff; }
+        .bottom-item:nth-child(3) { background-color: #ff9999; border-color: #ffaaaa; color: #662222; box-shadow: 0 0 25px #ff8888; }
+        .bottom-item:nth-child(4) { background-color: #cc99ff; border-color: #cc88ff; color: #442266; box-shadow: 0 0 25px #bb88ff; }
+        .bottom-item:nth-child(5) { background-color: #ffcc99; border-color: #ffbb88; color: #664422; box-shadow: 0 0 25px #ffaa66; }
+        .bottom-item:nth-child(6) { background-color: #ccff99; border-color: #aaffaa; color: #226622; box-shadow: 0 0 25px #bbff88; }
+
+        .bottom-item:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+            box-shadow: 0 0 35px currentColor, inset 0 0 15px white;
+        }
+
+        @media (max-width: 1000px) {
+            .bottom-item { font-size: 0.75rem; padding: 8px 10px; min-width: 120px; }
+        }
+        @media (max-width: 800px) {
+            .bottom-menu { flex-wrap: wrap; }
+            .title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration">
+        <span>⚛️</span>
+        <span>🧪</span>
+        <span>🧫</span>
+        <span>🔬</span>
+        <span>H₂SO₄</span>
+        <span>CH₄</span>
+    </div>
+
+    <div class="site-container">
+        <div class="title">"Адал азамат" біртұтас тәрбие бағдарламасы</div>
+
+        <div class="circle-menu">
+            <div class="center-emblem">
+                <img src="img/embl.png" alt="Эмблема">
+            </div>
+
+            <div class="menu-item">1. Қыркүйек</div>
+            <div class="menu-item">2. Қазан</div>
+            <div class="menu-item">3. Қараша</div>
+            <div class="menu-item">4. Желтоқсан</div>
+            <div class="menu-item">5. Қаңтар</div>
+            <div class="menu-item">6. Ақпан</div>
+            <div class="menu-item">7. Наурыз</div>
+            <div class="menu-item">8. Сәуір</div>
+            <div class="menu-item">9. Мамыр</div>
+            <div class="menu-item">10. Маусым</div>
+            <div class="menu-item">11. Шілде</div>
+            <div class="menu-item">12. Тамыз</div>
+            <div class="menu-item">13. Жыл</div>
+        </div>
+    </div>
+
+    <!-- Қосымша төменгі мәзір (өзгертілген: алғашқы екеуі навигация, қалғаны ескерту) -->
+    <div class="bottom-menu">
+        <div class="bottom-item">Видеолар Жасанды интелект адал азаматқа байланысты</div>
+        <div class="bottom-item">Тесттер адал азамат біртұтас тәрбие бағдарламасы</div>
+        <div class="bottom-item">Қауіпсіздік ережесі</div>
+        <div class="bottom-item">Қысқа мерзімді жоспар</div>
+        <div class="bottom-item">Тәрбие сағаттарының қмж</div>
+        <div class="bottom-item">Жас мамандармен жұмыс</div>
+    </div>
+
+    <script>
+        (function() {
+            // ---- 13 мәзір пункттері үшін навигация (өзгеріссіз) ----
+            const monthMap = {
+                'Қыркүйек': '1.html',
+                'Қазан': '2.html',
+                'Қараша': '3.html',
+                'Желтоқсан': '4.html',
+                'Қаңтар': '5.html',
+                'Ақпан': '6.html',
+                'Наурыз': '7.html',
+                'Сәуір': '8.html',
+                'Мамыр': '9.html',
+                'Маусым': 'index.html',
+                'Шілде': 'index.html',
+                'Тамыз': 'index.html',
+                'Жыл': 'index.html'
+            };
+
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fullText = item.innerText.trim();
+                    const parts = fullText.split('. ');
+                    const monthName = parts.length > 1 ? parts[1] : fullText;
+                    
+                    let fileName = monthMap[monthName];
+                    if (!fileName) fileName = 'index.html';
+                    window.location.href = fileName;
+                });
+            });
+
+            // ---- Төменгі мәзір элементтері: алғашқы екеуі навигация, қалғаны ескерту ----
+            const bottomItems = document.querySelectorAll('.bottom-item');
+            bottomItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const text = item.innerText.trim();
+
+                    // Видеолар пункті
+                    if (text.includes('Видеолар') && text.includes('Жасанды интелект')) {
+                        window.location.href = 'videos.html';
+                    }
+                    // Тесттер пункті
+                    else if (text.includes('Тесттер') && text.includes('адал азамат')) {
+                        window.location.href = 'tests.html';
+                    }
+                    // Қалғандары ескерту
+                    else {
+                        alert('Сіз ' + text + ' таңдадыңыз.');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | 1-тапсырма + 2-тапсырма + 3-апта</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        /* Блоктар */
+        .blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            flex: 1 1 400px;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+            box-shadow: 0 0 15px white;
+        }
+
+        th, td {
+            border: 2px solid white;
+            padding: 10px;
+            text-align: left;
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        th {
+            background: #ffcc99;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        td {
+            background: rgba(255, 255, 240, 0.8);
+        }
+
+        /* Drag & drop стильдері */
+        .drag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+
+        .drag-item {
+            padding: 10px 20px;
+            background: #ffd966;
+            border-radius: 30px;
+            border: 3px solid white;
+            font-weight: bold;
+            color: #2d3e50;
+            box-shadow: 0 0 15px #ffffaa;
+            cursor: grab;
+            transition: 0.1s;
+            user-select: none;
+            display: inline-block;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+            opacity: 0.8;
+        }
+
+        .drop-zone {
+            min-width: 60px;
+            min-height: 40px;
+            background: rgba(220, 240, 255, 0.5);
+            border-radius: 20px;
+            border: 2px dashed #aaaaff;
+            display: inline-block;
+            text-align: center;
+            padding: 5px;
+            color: #333;
+        }
+
+        td.drop-zone {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .check-btn, .reset-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+
+        .reset-btn {
+            background: #ffcc99;
+            box-shadow: 0 0 20px #ffaa66;
+        }
+
+        .check-btn:hover, .reset-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Дұрыс/бұрыс түстері */
+        .correct-drop {
+            background: #b5e6b5 !important;
+            border-color: #00aa00 !important;
+        }
+
+        .incorrect-drop {
+            background: #f8b5b5 !important;
+            border-color: #cc0000 !important;
+        }
+
+        /* Iframe стилі */
+        .iframe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .iframe-container iframe {
+            max-width: 100%;
+            border: 3px solid white;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.8);
+            background: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ========== 1-тапсырма (алдыңғы) ========== -->
+    <div class="title">Қыркүйек айы – Еңбекқорлық және кәсіби біліктілік айы</div>
+    <div class="subtitle">1 апта: Апта дәйексөзі: «Ел-жұртымның бақыты аталатын, сөнбесін мәңгі сенің, Отан, атың!»</div>
+    <div class="task-header">1-тапсырма: «Кімнің еңбегі мол?»</div>
+    <div class="task-goal"><strong>Ойынның мақсаты:</strong> Төменде химияға қатысты екі адамның суреті берілген. Олардың бірі - өте еңбекқор әрі кәсіби маман. Бос орынға сол кісінің несімен маман екенін жаз.</div>
+
+    <!-- Бірінші тапсырманың блоктары -->
+    <div class="blocks">
+        <!-- блок 1 -->
+        <div class="card">
+            <img src="img/1maman.jpg" alt="Ұйықтап жатқан студент" style="width:100%; height:200px; object-fit:contain; background:#e0e0ff; border-radius:30px 20px; border:3px solid white;" onerror="this.src='https://via.placeholder.com/400x200?text=1maman.jpg'">
+            <div class="desc"><strong>Үстел басында отырып, ұйықтап кеткен студент. Үстінде шашылып жатқан кітаптар.</strong><br>Бұл адам еңбекқор ма?</div>
+            <div class="radio-group" style="display:flex; gap:25px;">
+                <label><input type="radio" name="q1" value="Иә"> Иә</label>
+                <label><input type="radio" name="q1" value="Жоқ"> Жоқ</label>
+            </div>
+            <label>Неліктен?</label>
+            <textarea class="comment-area" id="comment1" rows="2" style="width:100%; border-radius:20px; border:2px solid white; padding:8px;"></textarea>
+            <div style="font-size:0.9rem; color:#555;">(Иә – дұрыс емес, Жоқ – дұрыс)</div>
+        </div>
+        <!-- блок 2 -->
+        <div class="card">
+            <img src="img/2maman.jpg" alt="Ғалым" style="width:100%; height:200px; object-fit:contain; background:#e0e0ff; border-radius:30px 20px; border:3px solid white;" onerror="this.src='https://via.placeholder.com/400x200?text=2maman.jpg'">
+            <div class="desc"><strong>Химиялық зертханада тәжірибе жасап тұрған ғалым. Қолында сынауық, көзілдірік киген.</strong><br>Бұл адам кәсіби маман ба?</div>
+            <div class="radio-group" style="display:flex; gap:25px;">
+                <label><input type="radio" name="q2" value="Иә"> Иә</label>
+                <label><input type="radio" name="q2" value="Жоқ"> Жоқ</label>
+            </div>
+            <label>Неліктен?</label>
+            <textarea class="comment-area" id="comment2" rows="2" style="width:100%; border-radius:20px; border:2px solid white; padding:8px;"></textarea>
+            <div style="font-size:0.9rem; color:#555;">(Иә – дұрыс, Жоқ – дұрыс емес)</div>
+        </div>
+    </div>
+
+    <!-- ========== Жаңа 2-апта (Менделеев отбасы) ========== -->
+    <div class="subtitle" style="margin-top:50px;">2 апта: Апта дәйексөзі: «Туған жердей жер болмас, туған елдей ел болмас!»</div>
+    <div class="task-header">1-тапсырма: «МЕНДЕЛЕЕВ ОТБАСЫ» ОЙЫНЫ</div>
+    <div class="task-goal">
+        <strong>Ойын түрі:</strong> Топтық жұмыс / Шығармашылық тапсырма<br>
+        <strong>Ойын мақсаты:</strong> Отбасындағы әрбір адамның өзіндік рөлі мен маңызы болатыны сияқты, химиялық элементтердің де периодтық жүйеде өз орны мен қызметі бар. Ата-ана - отбасының тірегі, ал белгілі бір элементтер - барлық заттардың негізі. Осы ұқсастық арқылы оқушылар химиялық элементтердің қызметін отбасы құндылықтарымен байланыстырады.
+    </div>
+
+    <!-- Екі блок (екі тапсырма) қатар -->
+    <div class="blocks">
+        <!-- Бірінші блок: сәйкестендір (символдар) -->
+        <div class="card">
+            <h3 style="color:#442266; margin-bottom:15px;">1-тапсырма: Элементтер мен белгілер</h3>
+            <table id="table1">
+                <tr><th>№</th><th>Элемент атауы</th><th>Химиялық белгісі</th></tr>
+                <tr><td>1</td><td>Оттегі</td><td class="drop-zone" id="drop1" data-expected="O"></td></tr>
+                <tr><td>2</td><td>Кремний</td><td class="drop-zone" id="drop2" data-expected="Si"></td></tr>
+                <tr><td>3</td><td>Натрий</td><td class="drop-zone" id="drop3" data-expected="Na"></td></tr>
+                <tr><td>4</td><td>Күміс</td><td class="drop-zone" id="drop4" data-expected="Ag"></td></tr>
+                <tr><td>5</td><td>Хлор</td><td class="drop-zone" id="drop5" data-expected="Cl"></td></tr>
+                <tr><td>6</td><td>Мырыш</td><td class="drop-zone" id="drop6" data-expected="Zn"></td></tr>
+            </table>
+            <div class="drag-container" id="symbolsContainer">
+                <div class="drag-item" draggable="true" data-value="O">O</div>
+                <div class="drag-item" draggable="true" data-value="Si">Si</div>
+                <div class="drag-item" draggable="true" data-value="Na">Na</div>
+                <div class="drag-item" draggable="true" data-value="Ag">Ag</div>
+                <div class="drag-item" draggable="true" data-value="Cl">Cl</div>
+                <div class="drag-item" draggable="true" data-value="Zn">Zn</div>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkTable1">Тексеру</button>
+                <button class="reset-btn" id="resetTable1">Қайтадан</button>
+            </div>
+            <div id="result1" class="result-message"></div>
+        </div>
+
+        <!-- Екінші блок: отбасы мүшелері -->
+        <div class="card">
+            <h3 style="color:#442266; margin-bottom:15px;">2-тапсырма: Химиялық элементті отбасы мүшесімен сәйкестендір</h3>
+            <table id="table2">
+                <tr><th>№</th><th>Химиялық элемент</th><th>Жауап нөмірі</th><th>Отбасы мүшесі</th></tr>
+                <tr><td>1</td><td>Оттегі (O)</td><td class="drop-zone" id="familyDrop1"></td><td>А) Әке</td></tr>
+                <tr><td>2</td><td>Темір (Fe)</td><td class="drop-zone" id="familyDrop2"></td><td>Ә) Ана</td></tr>
+                <tr><td>3</td><td>Кальций (Ca)</td><td class="drop-zone" id="familyDrop3"></td><td>Б) Ата</td></tr>
+                <tr><td>4</td><td>Алтын (Au)</td><td class="drop-zone" id="familyDrop4"></td><td>В) Әже</td></tr>
+                <tr><td>5</td><td>Сутек (H)</td><td class="drop-zone" id="familyDrop5"></td><td>Г) Бала</td></tr>
+                <tr><td>6</td><td>Күміс (Ag)</td><td class="drop-zone" id="familyDrop6"></td><td>Ғ) Іні/Қарындас</td></tr>
+            </table>
+            <div class="drag-container" id="familyContainer">
+                <div class="drag-item" draggable="true" data-value="А) Әке">А) Әке</div>
+                <div class="drag-item" draggable="true" data-value="Ә) Ана">Ә) Ана</div>
+                <div class="drag-item" draggable="true" data-value="Б) Ата">Б) Ата</div>
+                <div class="drag-item" draggable="true" data-value="В) Әже">В) Әже</div>
+                <div class="drag-item" draggable="true" data-value="Г) Бала">Г) Бала</div>
+                <div class="drag-item" draggable="true" data-value="Ғ) Іні/Қарындас">Ғ) Іні/Қарындас</div>
+            </div>
+            <p style="margin-top:15px; color:#335;">Дұрыс/бұрыс жоқ, өз ойыңызша сәйкестендіріңіз.</p>
+        </div>
+    </div>
+
+    <!-- ========== Жаңа 3-апта ========== -->
+    <div class="subtitle" style="margin-top:50px;">3 апта: Апта дәйексөзі: «Отанды сүю - отбасынан басталады!»</div>
+    
+    <!-- 1-тапсырма iframe -->
+    <div class="task-header">1-тапсырма: «КЕЗДЕЙСОҚ КАРТАЛАР»</div>
+    <div class="iframe-container">
+        <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/364e261ed88e49bda3436a5d6aa2014a?themeId=42&templateId=70&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- 2-тапсырма iframe -->
+    <div class="task-header">2-тапсырма: «Wordwoll» платформасы арқылы сұрақтарға жауап береді?</div>
+    <div class="iframe-container">
+        <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/8d67779b828d481cbe6a2d05f94b7eb2?themeId=1&templateId=5&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Жіберу кнопкасы (бірінші тапсырмаға арналған) -->
+    <button class="send-btn" id="sendBtn" style="display:block; margin:40px auto; padding:15px 40px; font-size:1.8rem; background:#ffcc99; border:4px solid white; border-radius:60px; box-shadow:0 0 30px #ffaa66; cursor:pointer;">Жіберу</button>
+</div>
+
+<script>
+    // Drag & drop логикасы (барлық .drag-item үшін)
+    const dragItems = document.querySelectorAll('.drag-item');
+    dragItems.forEach(item => {
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
+    });
+
+    // Дроп зоналар (кесте ішіндегі .drop-zone)
+    const dropZones = document.querySelectorAll('.drop-zone');
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', handleDragOver);
+        zone.addEventListener('drop', handleDrop);
+    });
+
+    let draggedElement = null;
+
+    function handleDragStart(e) {
+        draggedElement = this;
+        e.dataTransfer.setData('text/plain', this.dataset.value || this.innerText);
+        this.style.opacity = '0.5';
+    }
+
+    function handleDragEnd(e) {
+        this.style.opacity = '1';
+        draggedElement = null;
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        if (!draggedElement) return;
+
+        const dropZone = e.target.closest('.drop-zone');
+        if (!dropZone) return;
+
+        const dataValue = draggedElement.dataset.value || draggedElement.innerText;
+        dropZone.innerText = dataValue;
+        draggedElement.style.display = 'none';
+        draggedElement = null;
+    }
+
+    // Бірінші таблицаны тексеру (фоны түспен көрсету)
+    document.getElementById('checkTable1').addEventListener('click', function() {
+        let correct = 0;
+        const rows = document.querySelectorAll('#table1 tr');
+        for (let i = 1; i < rows.length; i++) {
+            const dropZone = rows[i].querySelector('.drop-zone');
+            const expected = dropZone.dataset.expected;
+            const actual = dropZone.innerText.trim();
+            // Алдыңғы түстерді тазалау
+            dropZone.classList.remove('correct-drop', 'incorrect-drop');
+            if (actual === expected) {
+                correct++;
+                dropZone.classList.add('correct-drop');
+            } else {
+                dropZone.classList.add('incorrect-drop');
+            }
+        }
+        const resultDiv = document.getElementById('result1');
+        if (correct === 6) {
+            resultDiv.innerHTML = '✅ Барлығы дұрыс!';
+            resultDiv.style.background = '#ccffcc';
+        } else {
+            resultDiv.innerHTML = `❌ ${correct} / 6 дұрыс. Қайта тексеріңіз.`;
+            resultDiv.style.background = '#ffcccc';
+        }
+    });
+
+    // Қайтадан кнопкасы (бірінші блокты қалпына келтіру)
+    document.getElementById('resetTable1').addEventListener('click', function() {
+        // 1. Барлық drag-item элементтерін көрсету
+        const symbolsContainer = document.getElementById('symbolsContainer');
+        const dragItems = symbolsContainer.querySelectorAll('.drag-item');
+        dragItems.forEach(item => {
+            item.style.display = 'inline-block';
+        });
+
+        // 2. Таблицадағы drop-zone ішін тазалау және түстерді алып тастау
+        const dropZones = document.querySelectorAll('#table1 .drop-zone');
+        dropZones.forEach(zone => {
+            zone.innerText = '';
+            zone.classList.remove('correct-drop', 'incorrect-drop');
+        });
+
+        // 3. Нәтиже хабарын тазалау
+        const resultDiv = document.getElementById('result1');
+        resultDiv.innerHTML = '';
+        resultDiv.style.background = '';
+    });
+
+    // Жіберу кнопкасы (бірінші тапсырманың есебі)
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        const q1 = document.querySelector('input[name="q1"]:checked')?.value || 'таңдалмады';
+        const comm1 = document.getElementById('comment1').value.trim() || 'пікір жоқ';
+        const q2 = document.querySelector('input[name="q2"]:checked')?.value || 'таңдалмады';
+        const comm2 = document.getElementById('comment2').value.trim() || 'пікір жоқ';
+
+        let report = "1-тапсырма есебі:\n";
+        report += "1-сурет: Таңдау: " + q1 + "\nПікір: " + comm1 + "\n\n";
+        report += "2-сурет: Таңдау: " + q2 + "\nПікір: " + comm2 + "\n";
+
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+</body>
+</html>

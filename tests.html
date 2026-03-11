@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Біртұтас тесттер (12 ай)</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255,255,240,0.4);
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .options label {
+            background: rgba(255,255,200,0.6);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 1rem;
+            box-shadow: 0 0 5px white;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .check-btn, .reset-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+
+        .reset-btn {
+            background: #ffcc99;
+            box-shadow: 0 0 20px #ffaa66;
+        }
+
+        .check-btn:hover, .reset-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .correct-option {
+            background-color: #a5d6a5 !important;
+            border: 3px solid #00aa00 !important;
+            box-shadow: 0 0 15px #00aa00;
+        }
+
+        .incorrect-option {
+            background-color: #f4a2a2 !important;
+            border: 3px solid #cc0000 !important;
+            box-shadow: 0 0 15px #cc0000;
+        }
+
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+
+        hr {
+            border: 2px solid white;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">Адал азамат | Біртұтас тәрбие тесттері</div>
+    <div class="subtitle">12 айға арналған сұрақтар</div>
+
+    <div id="monthsContainer"></div>
+
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    (function() {
+        // --------------------------------------------------------------
+        // Деректер: айлар, сұрақтар, дұрыс жауаптар (әріп түрінде)
+        // --------------------------------------------------------------
+        const months = [
+            {
+                name: "Қыркүйек айы – Еңбекқорлық және кәсіби біліктілік айы",
+                questions: [
+                    { text: "Д.И. Менделеев өзінің атақты \"Химиялық элементтердің периодтық кестесін\" құру үшін қандай қасиетінің арқасында ұлы жаңалық ашты?",
+                      options: ["A) Күшті физикалық дайындығы", "B) Еңбекқорлығы, табандылығы және жүйелі ойлау қабілеті", "C) Бақыты", "D) Шетел тілдерін жетік білуі"],
+                      correct: "B" },
+                    { text: "\"Еңбектің наны тәтті, жалқаулықтың ...\" деген мақал қалай аяқталады?",
+                      options: ["A) күні өтеді", "B) жаны тәтті", "C) соры татти", "D) малы семіз"],
+                      correct: "B" },
+                    { text: "Қазақстанда ең көп өндірілетін түсті металл қайсысы?",
+                      options: ["A) Алтын", "B) Мыс", "C) Күміс", "D) Платина"],
+                      correct: "B" },
+                    { text: "«Ел-жұртымның бақыты аталатын» деген жолдардағы «аталатын» сөзі қандай мағына береді?",
+                      options: ["A) Ата-бабадан қалған", "B) Атауға лайық", "C) Аты шыққан", "D) Атақты"],
+                      correct: "B" },
+                    { text: "Қазақстанның қай облысы фосфорит өндірумен танымал?",
+                      options: ["A) Атырау", "B) Қарағанды", "C) Жамбыл (Қаратау)", "D) Шығыс Қазақстан"],
+                      correct: "C" }
+                ]
+            },
+            {
+                name: "Қазан айы – Тәуелсіздік және отаншылдық айы",
+                questions: [
+                    { text: "Химиялық зертханада жұмыс істегенде ең басты жауапкершілік қандай?",
+                      options: ["A) Тезірек жұмысты бітіру", "B) Қауіпсіздік ережелерін сақтау", "C) Көп тәжірибе жасау"],
+                      correct: "B" },
+                    { text: "Егер сіз химиялық реакция теңдеуін дұрыс теңестірмесеңіз, қандай заң бұзылады?",
+                      options: ["A) Энергияның сақталу заңы", "B) Зат массасының сақталу заңы", "C) Авогадро заңы", "D) Гей-Люссак заңы"],
+                      correct: "B" },
+                    { text: "«Әділдік пен жауапкершілік - біртұтас ұғым» дегенді химия тілінде қалай түсіндіруге болады?",
+                      options: ["A) Реакция теңдеуі теңестірілгенде ғана әділдік орнайды", "B) Әрбір әрекет үшін жауап беру керек", "C) Химиялық реакцияларда ешнәрсе жоғалмайды", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Химиялық зертханада жауапкершіліксіздік қандай салдарға әкелуі мүмкін?",
+                      options: ["A) Қауіпті жағдайларға", "B) Ғылыми қателіктерге", "C) Апаттарға", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Қай ғалым зат массасының сақталу заңын ашқан?",
+                      options: ["A) Менделеев", "B) Ломоносов", "C) Авогадро", "D) Бойль"],
+                      correct: "B" }
+                ]
+            },
+            {
+                name: "Қараша айы – Әділдік және жауапкершілік айы",
+                questions: [
+                    { text: "Зауыттардан шығатын химиялық қалдықтарды тазарту – бұл:",
+                      options: ["A) Өндірістік қажеттілік", "B) Экологиялық жауапкершілік", "C) Мемлекеттік талап", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Ауаға зиянды газдардың таралуы қандай проблемаға әкеледі?",
+                      options: ["A) Парниктік эффект", "B) Қышқылдық жаңбыр", "C) Озон қабатының бұзылуы", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Пластмасса қалдықтарын өртеуге бола ма?",
+                      options: ["A) Иә, тез кетеді", "B) Жоқ, улы газдар бөлінеді", "C) Иә, ешқандай зияны жоқ", "D) Тек арнайы пеште"],
+                      correct: "B" },
+                    { text: "Химиялық тыңайтқыштарды шамадан тыс қолдану неге әкеледі?",
+                      options: ["A) Топырақтың ластануына", "B) Өнімнің артуына", "C) Ауаның тазаруына", "D) Судың тазаруына"],
+                      correct: "A" },
+                    { text: "«Жауапкершілік – азаматтық борыш» дегенді қалай түсінесің?",
+                      options: ["A) Әр адам өз іс-әрекетіне жауап беруі керек", "B) Тек ересектер ғана жауапты", "C) Жауапкершілік тек мектепте керек", "D) Жауапкершілік – міндетті емес"],
+                      correct: "A" }
+                ]
+            },
+            {
+                name: "Желтоқсан айы – Бірлік және ынтымақ айы",
+                questions: [
+                    { text: "«Ынтымақ – бұзылмайтын қорған» деген дәйексөз қандай химиялық құбылысқа ұқсайды?",
+                      options: ["A) Газдардың диффузиясы", "B) Инертті газдардың әрекеттеспеуі", "C) Берік химиялық байланыстар", "D) Судың булануы"],
+                      correct: "C" },
+                    { text: "Екі адамның достығы қандай химиялық байланысқа ұқсайды?",
+                      options: ["A) Иондық байланыс", "B) Ковалентті байланыс", "C) Металдық байланыс", "D) Сутектік байланыс"],
+                      correct: "B" },
+                    { text: "Көптеген адамдардың бірлескен еңбегі қандай химиялық құбылысқа ұқсайды?",
+                      options: ["A) Жай заттардың қосылысы", "B) Катализ", "C) Металдық байланыс", "D) Полимерлену"],
+                      correct: "D" },
+                    { text: "Натрий (Na) мен хлор (Cl) жеке тұрғанда өте қауіпті, ал біріккенде (NaCl) ас тұзына айналады. Бұл қандай құндылықты көрсетеді?",
+                      options: ["A) Бөлінудің пайдасын", "B) Бірігудің пайдасын", "C) Жекеліктің артықшылығын", "D) Қауіптің қажеттілігін"],
+                      correct: "B" },
+                    { text: "Топтық жұмыс кезінде әр адам өз міндетін атқаруы қандай химиялық процеске ұқсайды?",
+                      options: ["A) Катализ", "B) Тізбекті реакция", "C) Полимерлену", "D) Гидролиз"],
+                      correct: "B" }
+                ]
+            },
+            {
+                name: "Қаңтар айы – Заң және тәртіп айы",
+                questions: [
+                    { text: "Химия зертханасында жұмыс істегенде ең басты талап қандай?",
+                      options: ["A) Тәжірибені тез бітіру", "B) Қауіпсіздік техникасын сақтау", "C) Көп тәжірибе жасау", "D) Әдемі есеп жаз"],
+                      correct: "B" },
+                    { text: "Қазақ халқының «Заң – патша, халық – оның қорғаны» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Ата-баба дәстүрі", "B) Заңға бағыну және құрметтеу", "C) Еңбекқорлық", "D) Достық"],
+                      correct: "B" },
+                    { text: "«Әділ биде туған жоқ» деген қазақ мақалы қандай ұлттық құндылықты көрсетеді?",
+                      options: ["A) Туыстық қарым-қатынас", "B) Әділеттілік және теңдік", "C) Байлық", "D) Күш"],
+                      correct: "B" },
+                    { text: "«Игілікті іс тәртіптен басталады» деген мақал химия зертханасындағы қандай ережеге сәйкес келеді?",
+                      options: ["A) Қышқылды суға құю", "B) Реактивтерді иіскеу тәртібі", "C) Жұмыс орнын жинау", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Қазақ халқының «Әке көрген оқ жонар» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Дәстүр жалғастығы", "B) Еңбекқорлық", "C) Батылдық", "D) Достық"],
+                      correct: "A" }
+                ]
+            },
+            {
+                name: "Ақпан айы – Жасампаздық және жаңашылдық айы",
+                questions: [
+                    { text: "Қазақ халқының «Өнерлі бала – өрге жүзер» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Байлықты", "B) Өнерпаздық пен жасампаздықты", "C) Күштілікті", "D) Жылдамдықты"],
+                      correct: "B" },
+                    { text: "«Шығармашыл бала – ойлы бала» деген дәйексөз қай айға арналған?",
+                      options: ["A) Бірлік және ынтымақ айына", "B) Заң және тәртіп айына", "C) Жасампаздық және жаңашылдық айына", "D) Еңбекқорлық айына"],
+                      correct: "C" },
+                    { text: "«Жасампаздық – бәрімізге өнеге» деген дәйексөздің мәні қандай?",
+                      options: ["A) Әр адам жасампаз бола алады", "B) Жасампаздық тек ғалымдарға тән", "C) Жасампаздық тек үлкендерге керек", "D) Жасампаздықты үйрену мүмкін емес"],
+                      correct: "A" },
+                    { text: "«Ізденген жетер мұратқа» деген мақал қандай ұлттық құндылықты көрсетеді?",
+                      options: ["A) Тәртіптілікті", "B) Ізденімпаздық пен талпынысты", "C) Батылдықты", "D) Шапшаңдықты"],
+                      correct: "B" },
+                    { text: "Жасампаз адамға қандай қасиеттер тән?",
+                      options: ["A) Шығармашылық, жаңашылдық, еңбекқорлық", "B) Жалқаулық, немқұрайлылық", "C) Тек өз пайдасын ойлау", "D) Басқаларды сыйламау"],
+                      correct: "A" }
+                ]
+            },
+            {
+                name: "Наурыз айы – Тәуелсіздік және отаншылдық айы",
+                questions: [
+                    { text: "«Отан отбасынан басталады» деген мақал қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Достықты", "B) Отаншылдықты", "C) Байлықты", "D) Білімділікті"],
+                      correct: "B" },
+                    { text: "«Отан үшін отқа түс – күймейсің» деген мақалдың мәні қандай?",
+                      options: ["A) Отан үшін кез келген қиындыққа төзуге болады", "B) Отан үшін өлу керек", "C) Отқа түсуге болмайды", "D) Отан отқа толы"],
+                      correct: "A" },
+                    { text: "«Тәуелсіздік – бабалар аманаты» деген нені білдіреді?",
+                      options: ["A) Тәуелсіздік ата-бабамыздың арманы болған", "B) Тәуелсіздік оңай келген", "C) Тәуелсіздік керек емес", "D) Тәуелсіздік тек жастарға қажет"],
+                      correct: "A" },
+                    { text: "«Атамекен – алтын бесік» деген мақал нені білдіреді?",
+                      options: ["A) Туған жердің қадірін", "B) Алтынның құнын", "C) Бесіктің әдемілігін", "D) Баланың қымбаттылығын"],
+                      correct: "A" },
+                    { text: "«Еліңнің болашағы – сенің қолыңда» деген ұғымды қалай түсінесің?",
+                      options: ["A) Болашақты тек ересектер жасайды", "B) Әрбір азамат ел дамуына үлес қоса алады", "C) Болашақты тек байлар жасайды", "D) Болашақты тек ғалымдар жасайды"],
+                      correct: "B" }
+                ]
+            },
+            {
+                name: "Сәуір айы – Еңбекқорлық және кәсіби біліктілік айы",
+                questions: [
+                    { text: "Д.И. Менделеев өзінің атақты \"Химиялық элементтердің периодтық кестесін\" құру үшін қандай қасиетінің арқасында ұлы жаңалық ашты?",
+                      options: ["A) Күшті физикалық дайындығы", "B) Еңбекқорлығы, табандылығы және жүйелі ойлау қабілеті", "C) Бақыты", "D) Шетел тілдерін жетік білуі"],
+                      correct: "B" },
+                    { text: "\"Еңбектің наны тәтті, жалқаулықтың ...\" деген мақал қалай аяқталады?",
+                      options: ["A) күні өтеді", "B) жаны тәтті", "C) соры татти", "D) малы семіз"],
+                      correct: "B" },
+                    { text: "Қазақстанда ең көп өндірілетін түсті металл қайсысы?",
+                      options: ["A) Алтын", "B) Мыс", "C) Күміс", "D) Платина"],
+                      correct: "B" },
+                    { text: "«Ел-жұртымның бақыты аталатын» деген жолдардағы «аталатын» сөзі қандай мағына береді?",
+                      options: ["A) Ата-бабадан қалған", "B) Атауға лайық", "C) Аты шыққан", "D) Атақты"],
+                      correct: "B" },
+                    { text: "Қазақстанның қай облысы фосфорит өндірумен танымал?",
+                      options: ["A) Атырау", "B) Қарағанды", "C) Жамбыл (Қаратау)", "D) Шығыс Қазақстан"],
+                      correct: "C" }
+                ]
+            },
+            {
+                name: "Мамыр айы – Бірлік және ынтымақ айы",
+                questions: [
+                    { text: "«Ынтымақ – бұзылмайтын қорған» деген дәйексөз қандай химиялық құбылысқа ұқсайды?",
+                      options: ["A) Газдардың диффузиясы", "B) Инертті газдардың әрекеттеспеуі", "C) Берік химиялық байланыстар", "D) Судың булануы"],
+                      correct: "C" },
+                    { text: "Екі адамның достығы қандай химиялық байланысқа ұқсайды?",
+                      options: ["A) Иондық байланыс", "B) Ковалентті байланыс", "C) Металдық байланыс", "D) Сутектік байланыс"],
+                      correct: "B" },
+                    { text: "Көптеген адамдардың бірлескен еңбегі қандай химиялық құбылысқа ұқсайды?",
+                      options: ["A) Жай заттардың қосылысы", "B) Катализ", "C) Металдық байланыс", "D) Полимерлену"],
+                      correct: "D" },
+                    { text: "Натрий (Na) мен хлор (Cl) жеке тұрғанда өте қауіпті, ал біріккенде (NaCl) ас тұзына айналады. Бұл қандай құндылықты көрсетеді?",
+                      options: ["A) Бөлінудің пайдасын", "B) Бірігудің пайдасын", "C) Жекеліктің артықшылығын", "D) Қауіптің қажеттілігін"],
+                      correct: "B" },
+                    { text: "Топтық жұмыс кезінде әр адам өз міндетін атқаруы қандай химиялық процеске ұқсайды?",
+                      options: ["A) Катализ", "B) Тізбекті реакция", "C) Полимерлену", "D) Гидролиз"],
+                      correct: "B" }
+                ]
+            },
+            {
+                name: "Маусым айы – Жасампаздық және жаңашылдық айы",
+                questions: [
+                    { text: "Қазақ халқының «Өнерлі бала – өрге жүзер» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Байлықты", "B) Өнерпаздық пен жасампаздықты", "C) Күштілікті", "D) Жылдамдықты"],
+                      correct: "B" },
+                    { text: "«Шығармашыл бала – ойлы бала» деген дәйексөз қай айға арналған?",
+                      options: ["A) Бірлік және ынтымақ айына", "B) Заң және тәртіп айына", "C) Жасампаздық және жаңашылдық айына", "D) Еңбекқорлық айына"],
+                      correct: "C" },
+                    { text: "«Жасампаздық – бәрімізге өнеге» деген дәйексөздің мәні қандай?",
+                      options: ["A) Әр адам жасампаз бола алады", "B) Жасампаздық тек ғалымдарға тән", "C) Жасампаздық тек үлкендерге керек", "D) Жасампаздықты үйрену мүмкін емес"],
+                      correct: "A" },
+                    { text: "«Ізденген жетер мұратқа» деген мақал қандай ұлттық құндылықты көрсетеді?",
+                      options: ["A) Тәртіптілікті", "B) Ізденімпаздық пен талпынысты", "C) Батылдықты", "D) Шапшаңдықты"],
+                      correct: "B" },
+                    { text: "Жасампаз адамға қандай қасиеттер тән?",
+                      options: ["A) Шығармашылық, жаңашылдық, еңбекқорлық", "B) Жалқаулық, немқұрайлылық", "C) Тек өз пайдасын ойлау", "D) Басқаларды сыйламау"],
+                      correct: "A" }
+                ]
+            },
+            {
+                name: "Шілде айы – Заң және тәртіп айы",
+                questions: [
+                    { text: "Химия зертханасында жұмыс істегенде ең басты талап қандай?",
+                      options: ["A) Тәжірибені тез бітіру", "B) Қауіпсіздік техникасын сақтау", "C) Көп тәжірибе жасау", "D) Әдемі есеп жаз"],
+                      correct: "B" },
+                    { text: "Қазақ халқының «Заң – патша, халық – оның қорғаны» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Ата-баба дәстүрі", "B) Заңға бағыну және құрметтеу", "C) Еңбекқорлық", "D) Достық"],
+                      correct: "B" },
+                    { text: "«Әділ биде туған жоқ» деген қазақ мақалы қандай ұлттық құндылықты көрсетеді?",
+                      options: ["A) Туыстық қарым-қатынас", "B) Әділеттілік және теңдік", "C) Байлық", "D) Күш"],
+                      correct: "B" },
+                    { text: "«Игілікті іс тәртіптен басталады» деген мақал химия зертханасындағы қандай ережеге сәйкес келеді?",
+                      options: ["A) Қышқылды суға құю", "B) Реактивтерді иіскеу тәртібі", "C) Жұмыс орнын жинау", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Қазақ халқының «Әке көрген оқ жонар» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Дәстүр жалғастығы", "B) Еңбекқорлық", "C) Батылдық", "D) Достық"],
+                      correct: "A" }
+                ]
+            },
+            {
+                name: "Тамыз айы – Заң және тәртіп айы",
+                questions: [
+                    { text: "Химия зертханасында жұмыс істегенде ең басты талап қандай?",
+                      options: ["A) Тәжірибені тез бітіру", "B) Қауіпсіздік техникасын сақтау", "C) Көп тәжірибе жасау", "D) Әдемі есеп жаз"],
+                      correct: "B" },
+                    { text: "Қазақ халқының «Заң – патша, халық – оның қорғаны» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Ата-баба дәстүрі", "B) Заңға бағыну және құрметтеу", "C) Еңбекқорлық", "D) Достық"],
+                      correct: "B" },
+                    { text: "«Әділ биде туған жоқ» деген қазақ мақалы қандай ұлттық құндылықты көрсетеді?",
+                      options: ["A) Туыстық қарым-қатынас", "B) Әділеттілік және теңдік", "C) Байлық", "D) Күш"],
+                      correct: "B" },
+                    { text: "«Игілікті іс тәртіптен басталады» деген мақал химия зертханасындағы қандай ережеге сәйкес келеді?",
+                      options: ["A) Қышқылды суға құю", "B) Реактивтерді иіскеу тәртібі", "C) Жұмыс орнын жинау", "D) Барлық жауап дұрыс"],
+                      correct: "D" },
+                    { text: "Қазақ халқының «Әке көрген оқ жонар» деген мақалы қандай ұлттық құндылықты білдіреді?",
+                      options: ["A) Дәстүр жалғастығы", "B) Еңбекқорлық", "C) Батылдық", "D) Достық"],
+                      correct: "A" }
+                ]
+            }
+        ];
+
+        // --------------------------------------------------------------
+        // HTML құрастыру
+        // --------------------------------------------------------------
+        const container = document.getElementById('monthsContainer');
+        months.forEach((month, mIdx) => {
+            const block = document.createElement('div');
+            block.className = 'week-block';
+            block.setAttribute('data-month', mIdx);
+
+            const quote = document.createElement('div');
+            quote.className = 'week-quote';
+            quote.innerText = month.name;
+            block.appendChild(quote);
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            month.questions.forEach((q, qIdx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-block';
+
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerText = `${qIdx+1}. ${q.text}`;
+                qDiv.appendChild(qText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+
+                q.options.forEach((opt, oIdx) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `month${mIdx}_q${qIdx}`;
+                    radio.value = String.fromCharCode(65 + oIdx); // A, B, C, D (немесе тек 3 болса)
+                    // Бірақ кейбір сұрақтарда 3 нұсқа бар, сондықтан әріпті дұрыс көрсету үшін опцияның басындағы әріпті аламыз
+                    // Опция мәтіні "A) ..." түрінде, сондықтан radio.value ретінде сол әріпті сақтаймыз
+                    // Бірақ біз дұрыс жауапты әріппен салыстырамыз, сондықтан radio.value әріп болуы керек
+                    // Опция мәтінінен бірінші әріпті алуға болады, бірақ кейбір опцияларда әріп жоқ па? Біздің деректерде бар.
+                    // Дегенмен, төмендегідей opt[0] арқылы алуға болады, бірақ ол әріп емес сан болуы мүмкін? Біздің opt мәтіні "A) ..." басталады, сондықтан opt[0] - әріп.
+                    radio.value = opt[0]; // "A", "B" т.б.
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(opt));
+                    optionsDiv.appendChild(label);
+                });
+
+                qDiv.appendChild(optionsDiv);
+                card.appendChild(qDiv);
+            });
+
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'button-group';
+
+            const checkBtn = document.createElement('button');
+            checkBtn.className = 'check-btn';
+            checkBtn.innerText = 'Тексеру';
+            checkBtn.onclick = function() { checkMonth(mIdx); };
+
+            const resetBtn = document.createElement('button');
+            resetBtn.className = 'reset-btn';
+            resetBtn.innerText = 'Қайталау';
+            resetBtn.onclick = function() { resetMonth(mIdx); };
+
+            btnGroup.appendChild(checkBtn);
+            btnGroup.appendChild(resetBtn);
+            card.appendChild(btnGroup);
+
+            const resultDiv = document.createElement('div');
+            resultDiv.id = `resultMonth${mIdx}`;
+            resultDiv.className = 'result-message';
+            card.appendChild(resultDiv);
+
+            block.appendChild(card);
+            container.appendChild(block);
+        });
+
+        // --------------------------------------------------------------
+        // Функциялар: тексеру, қайталау, жіберу
+        // --------------------------------------------------------------
+        window.checkMonth = function(monthIdx) {
+            const month = months[monthIdx];
+            let correctCount = 0;
+            for (let qIdx = 0; qIdx < month.questions.length; qIdx++) {
+                const q = month.questions[qIdx];
+                const radios = document.getElementsByName(`month${monthIdx}_q${qIdx}`);
+                let selected = null;
+                radios.forEach(r => { if (r.checked) selected = r; });
+
+                // Барлық лейблдерден highlight класстарын алып тастау
+                radios.forEach(r => {
+                    const label = r.parentElement;
+                    label.classList.remove('correct-option', 'incorrect-option');
+                });
+
+                // Дұрыс жауапты белгілеу (тұрақты жасыл)
+                radios.forEach(r => {
+                    const label = r.parentElement;
+                    if (r.value === q.correct) {
+                        label.classList.add('correct-option');
+                    }
+                });
+
+                // Егер пайдаланушы таңдаған болса және ол қате болса, қызылмен белгілеу
+                if (selected) {
+                    const selectedLabel = selected.parentElement;
+                    if (selected.value !== q.correct) {
+                        selectedLabel.classList.add('incorrect-option');
+                    } else {
+                        correctCount++;
+                    }
+                }
+            }
+            const resultDiv = document.getElementById(`resultMonth${monthIdx}`);
+            if (correctCount === month.questions.length) {
+                resultDiv.innerHTML = '✅ Барлық жауап дұрыс!';
+                resultDiv.style.background = '#ccffcc';
+            } else {
+                resultDiv.innerHTML = `❌ ${correctCount} / ${month.questions.length} дұрыс.`;
+                resultDiv.style.background = '#ffcccc';
+            }
+        };
+
+        window.resetMonth = function(monthIdx) {
+            const month = months[monthIdx];
+            for (let qIdx = 0; qIdx < month.questions.length; qIdx++) {
+                const radios = document.getElementsByName(`month${monthIdx}_q${qIdx}`);
+                radios.forEach(r => {
+                    r.checked = false;
+                    r.parentElement.classList.remove('correct-option', 'incorrect-option');
+                });
+            }
+            const resultDiv = document.getElementById(`resultMonth${monthIdx}`);
+            resultDiv.innerHTML = '';
+            resultDiv.style.background = '';
+        };
+
+        // Жіберу
+        document.getElementById('sendBtn').addEventListener('click', function() {
+            let report = "==== АДАЛ АЗАМАТ ТЕСТ ЖАУАПТАРЫ ====\n\n";
+            months.forEach((month, mIdx) => {
+                report += `${month.name}:\n`;
+                month.questions.forEach((q, qIdx) => {
+                    const radios = document.getElementsByName(`month${mIdx}_q${qIdx}`);
+                    let selectedText = 'таңдалмады';
+                    for (let r of radios) {
+                        if (r.checked) {
+                            // Алынған мәтінді (опцияның толық мәтінін) алу үшін
+                            selectedText = r.parentElement.innerText.trim();
+                            break;
+                        }
+                    }
+                    report += `  ${qIdx+1}. ${selectedText}\n`;
+                });
+                report += '\n';
+            });
+
+            const phone = "77029753937";
+            const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+            window.open(url, '_blank');
+        });
+
+    })();
+</script>
+</body>
+</html>

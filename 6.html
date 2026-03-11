@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Ақпан – Жасампаздық және жаңашылдық айы</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        /* Сандықтар стилі (1-тапсырма) */
+        .sunduk-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .sunduk-card {
+            flex: 1 1 280px;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sunduk-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: transform 0.2s;
+            filter: drop-shadow(0 0 10px white);
+        }
+        .sunduk-img:hover {
+            transform: scale(1.05);
+        }
+        .sunduk-color-white {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 10px;
+        }
+        .sunduk-color-blue {
+            background: rgba(100, 150, 255, 0.6);
+            border-radius: 30px;
+            padding: 10px;
+        }
+        .sunduk-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #2d3e50;
+        }
+        .question-panel {
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(255,255,240,0.7);
+            border-radius: 30px;
+            padding: 15px;
+            border: 2px solid white;
+            display: none;
+        }
+        .riddle-text {
+            font-size: 1.2rem;
+            background: #ffeedd;
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .answer-image {
+            background: #e0f0ff;
+            border-radius: 30px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 3px solid white;
+            display: none;
+        }
+        .task-section {
+            margin-top: 15px;
+        }
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 12px;
+            font-size: 1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 10px 0;
+            background: rgba(255,255,240,0.6);
+            padding: 10px;
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+        .radio-group label {
+            font-size: 1.1rem;
+        }
+        .save-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #b5e6b5;
+            margin: 5px;
+        }
+        .save-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .result-message {
+            font-size: 1.1rem;
+            padding: 8px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+
+        /* Асықтар ойыны стильдері */
+        .game-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            min-height: 400px;
+        }
+        .zone {
+            flex: 1;
+            min-width: 200px;
+            min-height: 350px;
+            background: rgba(255, 255, 240, 0.3);
+            border: 3px dashed white;
+            border-radius: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            justify-content: center;
+            padding: 15px;
+            gap: 10px;
+            backdrop-filter: blur(2px);
+            box-shadow: inset 0 0 20px white;
+        }
+        .zone.left {
+            background: rgba(200, 230, 255, 0.4);
+        }
+        .zone.right {
+            background: rgba(255, 220, 200, 0.4);
+        }
+        .fire-center {
+            flex: 0 0 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .fire-gif {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: rgba(255,255,200,0.5);
+            border: 4px solid white;
+            box-shadow: 0 0 40px orange;
+        }
+        .asik-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            background: rgba(255,255,240,0.3);
+            border-radius: 60px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .asik-item {
+            width: 70px;
+            height: 70px;
+            background: url('img/asik.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2d3e50;
+            text-shadow: 0 0 5px white;
+            border-radius: 30px;
+            border: 3px solid white;
+            box-shadow: 0 0 10px white;
+            cursor: grab;
+            user-select: none;
+            transition: 0.1s;
+            background-size: 90%;
+            background-position: center;
+            background-color: #ffeeb5;
+        }
+        .asik-item[draggable="true"]:active {
+            cursor: grabbing;
+            opacity: 0.8;
+        }
+        .asik-item.correct {
+            border: 5px solid #00ff00 !important;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        .asik-item.incorrect {
+            border: 5px solid #ff3333 !important;
+            box-shadow: 0 0 20px #ff3333;
+        }
+        .game-footer {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .action-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+        .action-btn.reset-btn {
+            background: #ffcc99;
+        }
+        .action-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        .dropzone-hint {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 5px;
+            color: #335;
+            font-weight: bold;
+        }
+
+        /* 2-апта тесттеріне арналған стильдер */
+        .test-question {
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+            color: #1e3c5c;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: rgba(255,255,240,0.6);
+            padding: 15px;
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+        .options label {
+            margin-right: 15px;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+        .maze-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,240,0.7);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .maze-table th, .maze-table td {
+            border: 2px solid white;
+            padding: 15px;
+            text-align: left;
+        }
+        .maze-table th {
+            background: #ffcc99;
+            text-align: center;
+        }
+        .maze-table .options-cell {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .maze-table .options-cell label {
+            padding: 5px 12px;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+        label.correct-option {
+            background-color: #a5d6a5 !important;
+            border: 2px solid #00aa00;
+            box-shadow: 0 0 10px #00aa00;
+        }
+        label.incorrect-option {
+            background-color: #f4a2a2 !important;
+            border: 2px solid #cc0000;
+            box-shadow: 0 0 10px #cc0000;
+        }
+
+        /* 3-апта match game */
+        .match-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,240,0.7);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .match-table th, .match-table td {
+            border: 2px solid white;
+            padding: 15px;
+            text-align: left;
+        }
+        .match-table th {
+            background: #ffcc99;
+            text-align: center;
+        }
+        .match-dropzone {
+            min-width: 100px;
+            min-height: 50px;
+            background: rgba(220, 240, 255, 0.5);
+            border-radius: 30px;
+            border: 2px dashed #aaaaff;
+            display: inline-block;
+            text-align: center;
+            padding: 10px;
+            color: #333;
+            width: 100%;
+        }
+        .drag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            background: rgba(255,255,240,0.3);
+            border-radius: 60px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .drag-item {
+            padding: 12px 25px;
+            background: #ffd966;
+            border-radius: 40px;
+            border: 3px solid white;
+            font-weight: bold;
+            color: #2d3e50;
+            box-shadow: 0 0 15px #ffffaa;
+            cursor: grab;
+            user-select: none;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+        .drag-item:active {
+            cursor: grabbing;
+            opacity: 0.8;
+        }
+        .match-dropzone.correct-drop {
+            background: #b5e6b5 !important;
+            border-color: #00aa00 !important;
+        }
+        .match-dropzone.incorrect-drop {
+            background: #f8b5b5 !important;
+            border-color: #cc0000 !important;
+        }
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Ай және апта атауы -->
+    <div class="title">Ақпан айы – Жасампаздық және жаңашылдық айы</div>
+    <div class="week-quote">1-апта: Апта дәйексөзі «Жасампаздық бәрімізге өнеге»</div>
+    
+    <!-- ========== 1-тапсырма: САНДЫҚТАҒЫ ЖҰМБАҚ ========== -->
+    <div class="task-header">1-тапсырма: «САНДЫҚТАҒЫ ЖҰМБАҚ»</div>
+    <div class="task-goal">
+        <strong>Ойынның мақсаты:</strong> Химиялық білімдерін ұлттық дүниетаныммен ұштастыра отырып, оқушылардың пәнге деген қызығушылығын арттыру және олардың бойына ұлттық құндылықтарды (өнер, дәстүр, тағам, тіл) сіңіру.
+    </div>
+
+    <!-- Үш сандық -->
+    <div class="sunduk-container">
+        <!-- Сандық №1 ақ -->
+        <div class="sunduk-card sunduk-color-white" id="sunduk1">
+            <img src="img/sunduk.gif" class="sunduk-img" alt="Сандық" onclick="openSunduk(1)" onerror="this.src='https://via.placeholder.com/150?text=Сандық'">
+            <div class="sunduk-title">Сандық №1</div>
+            <div class="question-panel" id="panel1">
+                <div id="riddle1" class="riddle-text">"Ақ түсті, дәмді, тағамға зәру. Қазақта одан айран, ірімшік, құрт жасалады."</div>
+                <div class="button-group">
+                    <button class="save-btn" onclick="revealAnswer(1)">Жауабын білу</button>
+                </div>
+                <div id="answerImg1" class="answer-image">🥣 Жауабы: сүт</div>
+                <div class="task-section" id="task1" style="display: none;">
+                    <p><strong>Тапсырма:</strong> Сүттің құрамындағы негізгі элементтерді ата.</p>
+                    <textarea id="answer1" class="answer-area" placeholder="Жауабыңыз..."></textarea>
+                    <button class="save-btn" onclick="saveAnswer(1)">Жауапты сақтау</button>
+                    <div id="saveMsg1" class="result-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сандық №2 көк -->
+        <div class="sunduk-card sunduk-color-blue" id="sunduk2">
+            <img src="img/sunduk.gif" class="sunduk-img" alt="Сандық" onclick="openSunduk(2)" onerror="this.src='https://via.placeholder.com/150?text=Сандық'">
+            <div class="sunduk-title">Сандық №2</div>
+            <div class="question-panel" id="panel2">
+                <div id="riddle2" class="riddle-text">"Таудай темірді тозаң қылатын, киімді тазартып, кірін кетіретін."</div>
+                <div class="button-group">
+                    <button class="save-btn" onclick="revealAnswer(2)">Жауабын білу</button>
+                </div>
+                <div id="answerImg2" class="answer-image">🧼 Жауабы: Сабын</div>
+                <div class="task-section" id="task2" style="display: none;">
+                    <p><strong>Тапсырма:</strong> Бұл заттың химиялық формуласын жаз.</p>
+                    <textarea id="answer2" class="answer-area" placeholder="Жауабыңыз..."></textarea>
+                    <button class="save-btn" onclick="saveAnswer(2)">Жауапты сақтау</button>
+                    <div id="saveMsg2" class="result-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сандық №3 ақ -->
+        <div class="sunduk-card sunduk-color-white" id="sunduk3">
+            <img src="img/sunduk.gif" class="sunduk-img" alt="Сандық" onclick="openSunduk(3)" onerror="this.src='https://via.placeholder.com/150?text=Сандық'">
+            <div class="sunduk-title">Сандық №3</div>
+            <div class="question-panel" id="panel3">
+                <div id="riddle3" class="riddle-text">"Өзі тұз, өзі дәм, тамаққа жан бітіреді. Химияда ол хлор мен натрийден тұрады."</div>
+                <div class="button-group">
+                    <button class="save-btn" onclick="revealAnswer(3)">Жауабын білу</button>
+                </div>
+                <div id="answerImg3" class="answer-image">🧂 Жауабы: Тұз</div>
+                <div class="task-section" id="task3" style="display: none;">
+                    <p><strong>Тапсырма:</strong> Осы тұздың кристалл торының түрін таңда.</p>
+                    <div class="radio-group">
+                        <label><input type="radio" name="crystal3" value="Иондық"> Иондық</label>
+                        <label><input type="radio" name="crystal3" value="Атомдық"> Атомдық</label>
+                        <label><input type="radio" name="crystal3" value="Молекулалық"> Молекулалық</label>
+                    </div>
+                    <button class="save-btn" onclick="saveAnswer(3)">Жауапты сақтау</button>
+                    <div id="saveMsg3" class="result-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2-тапсырма: АСЫҚТАРДЫ СҰРЫПТАУ ========== -->
+    <div class="task-header">2-тапсырма: Асықтарды сұрыптау (Металдар және Бейметалдар)</div>
+    <div class="task-goal">
+        <strong>Тапсырма:</strong> Металл асықтарды оттың оң жағына, бейметалдарды сол жағына сүйреп апару керек. Дұрыс апарған сайын, асық "тырс" етіп орнына түседі.
+    </div>
+
+    <!-- Ойын алаңы: от + зоналар -->
+    <div class="game-area">
+        <!-- Сол жақ зона (бейметалдар) -->
+        <div class="zone left" id="leftZone" data-type="nonmetal">
+            <div class="dropzone-hint">Бейметалдар</div>
+        </div>
+
+        <!-- Ортада от -->
+        <div class="fire-center">
+            <img src="img/fire1.gif" class="fire-gif" alt="От" onerror="this.src='https://via.placeholder.com/150?text=🔥'">
+        </div>
+
+        <!-- Оң жақ зона (металдар) -->
+        <div class="zone right" id="rightZone" data-type="metal">
+            <div class="dropzone-hint">Металдар</div>
+        </div>
+    </div>
+
+    <!-- Бастапқы асықтар контейнері (айнала орналасқан) -->
+    <div class="asik-container" id="asikContainer"></div>
+
+    <!-- Батырмалар -->
+    <div class="game-footer">
+        <button class="action-btn" id="checkAsyk">Тексеру</button>
+        <button class="action-btn reset-btn" id="resetAsyk">Қайталау</button>
+    </div>
+
+    <!-- ========== 2-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі «Шығармашыл бала ойлы бала»</div>
+
+        <!-- 1-тапсырма: АДАЛДЫҚ ТОБЫ -->
+        <div class="task-header">1-тапсырма: «АДАЛДЫҚ ТОБЫ»</div>
+        <div class="card">
+            <div class="test-question">1. Қай металл халық арасында «адал металл» аталып, тот баспайды, яғни «өз қасиетін өзгертпейді»?</div>
+            <div class="options" id="q1Options">
+                <label><input type="radio" name="metal" value="A"> A) Темір</label>
+                <label><input type="radio" name="metal" value="B"> B) Алтын</label>
+                <label><input type="radio" name="metal" value="C"> C) Мыс</label>
+                <label><input type="radio" name="metal" value="D"> D) Сынап</label>
+            </div>
+            <div class="test-question">2. Қандай сутек қосылысы «ауыр су» деп аталады және оның құрамындағы дейтерий «шындықты жасырмайды»?</div>
+            <div class="options" id="q2Options">
+                <label><input type="radio" name="water" value="A"> A) H₂O</label>
+                <label><input type="radio" name="water" value="B"> B) D₂O</label>
+                <label><input type="radio" name="water" value="C"> C) H₂O₂</label>
+                <label><input type="radio" name="water" value="D"> D) H₂SO₄</label>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkTest1">Тексеру</button>
+                <button class="reset-btn" id="resetTest1">Қайтадан</button>
+            </div>
+            <div id="test1Result" class="result-message"></div>
+        </div>
+
+        <!-- 2-тапсырма: Шығармашылық лабиринт -->
+        <div class="task-header">2-тапсырма: «Шығармашылық лабиринт»</div>
+        <div class="card">
+            <table class="maze-table" id="mazeTable">
+                <tr><th>Сұрақ</th><th>Дұрыс жауап</th></tr>
+                <tr>
+                    <td>1. «Адалдық» символы саналатын, тот баспайтын металл?</td>
+                    <td class="options-cell">
+                        <label><input type="radio" name="maze1" value="Алтын (Au)"> Алтын (Au)</label>
+                        <label><input type="radio" name="maze1" value="Темір"> Темір</label>
+                        <label><input type="radio" name="maze1" value="Мыс"> Мыс</label>
+                        <label><input type="radio" name="maze1" value="Күміс"> Күміс</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2. Фотосинтез нәтижесінде түзілетін газ?</td>
+                    <td class="options-cell">
+                        <label><input type="radio" name="maze2" value="Оттек (O₂)"> Оттек (O₂)</label>
+                        <label><input type="radio" name="maze2" value="Көмірқышқыл газы"> Көмірқышқыл газы</label>
+                        <label><input type="radio" name="maze2" value="Азот"> Азот</label>
+                        <label><input type="radio" name="maze2" value="Сутек"> Сутек</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3. Адам сүйегінің беріктігіне жауап беретін элемент?</td>
+                    <td class="options-cell">
+                        <label><input type="radio" name="maze3" value="Кальций (Ca)"> Кальций (Ca)</label>
+                        <label><input type="radio" name="maze3" value="Натрий"> Натрий</label>
+                        <label><input type="radio" name="maze3" value="Калий"> Калий</label>
+                        <label><input type="radio" name="maze3" value="Магний"> Магний</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4. Қазақстанның «көмір астанасы» қай қала?</td>
+                    <td class="options-cell">
+                        <label><input type="radio" name="maze4" value="Қарағанды"> Қарағанды</label>
+                        <label><input type="radio" name="maze4" value="Атырау"> Атырау</label>
+                        <label><input type="radio" name="maze4" value="Жезқазған"> Жезқазған</label>
+                        <label><input type="radio" name="maze4" value="Өскемен"> Өскемен</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5. Н, О, С, N атомдық массаларының қосындысы?</td>
+                    <td class="options-cell">
+                        <label><input type="radio" name="maze5" value="43"> 43</label>
+                        <label><input type="radio" name="maze5" value="32"> 32</label>
+                        <label><input type="radio" name="maze5" value="54"> 54</label>
+                        <label><input type="radio" name="maze5" value="29"> 29</label>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-group">
+                <button class="check-btn" id="checkMaze">Тексеру</button>
+                <button class="reset-btn" id="resetMaze">Қайтадан</button>
+            </div>
+            <div id="mazeResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- ========== 3-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі «Өнерлі бала өрге жүзер»</div>
+        <div class="task-header">1-тапсырма: «Өнер мен химия» (карточкаларды жұптастыру)</div>
+        <div class="task-goal">
+            <strong>Тапсырма:</strong> Төмендегі ұлттық өнер түрлері мен химиялық элементтерді сәйкестендір. Әр өнерге қатысты элементті апарып таста.
+        </div>
+        <div class="card">
+            <table class="match-table" id="artTable">
+                <tr><th>Ұлттық өнер</th><th>Химиялық элемент/зат</th></tr>
+                <tr><td>Зергерлік өнер</td><td><div class="match-dropzone" id="artDrop1" data-expected="Алтын (Au)"></div></td></tr>
+                <tr><td>Керамика</td><td><div class="match-dropzone" id="artDrop2" data-expected="Кремний (Si)"></div></td></tr>
+                <tr><td>Кілем тоқу</td><td><div class="match-dropzone" id="artDrop3" data-expected="Күкірт (S)"></div></td></tr>
+                <tr><td>Ұсталық</td><td><div class="match-dropzone" id="artDrop4" data-expected="Темір (Fe)"></div></td></tr>
+                <tr><td>Ағаш өңдеу</td><td><div class="match-dropzone" id="artDrop5" data-expected="Көміртек (C)"></div></td></tr>
+            </table>
+            <div class="drag-container" id="artDragContainer">
+                <div class="drag-item" draggable="true" data-value="Алтын (Au)">Алтын (Au)</div>
+                <div class="drag-item" draggable="true" data-value="Кремний (Si)">Кремний (Si)</div>
+                <div class="drag-item" draggable="true" data-value="Күкірт (S)">Күкірт (S)</div>
+                <div class="drag-item" draggable="true" data-value="Темір (Fe)">Темір (Fe)</div>
+                <div class="drag-item" draggable="true" data-value="Көміртек (C)">Көміртек (C)</div>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkArtMatch">Тексеру</button>
+                <button class="reset-btn" id="resetArtMatch">Қайтадан</button>
+            </div>
+            <div id="artMatchResult" class="result-message"></div>
+        </div>
+
+        <div class="task-header">2-тапсырма: Тәртіп оқушы қандай оқушы деп ойлайсың?</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/9ecc349435a0485dab8ae58dccc16ce7?themeId=1&templateId=3&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ========== 4-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Апта дәйексөзі «Жаңашылдық заман талабы»</div>
+        <div class="task-header">1-тапсырма: «КЕЗДЕЙСОҚ КАРТАЛАР»</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/364e261ed88e49bda3436a5d6aa2014a?themeId=42&templateId=70&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="task-header">2-тапсырма: «Wordwoll» платформасы арқылы сұрақтарға жауап береді?</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/8d67779b828d481cbe6a2d05f94b7eb2?themeId=1&templateId=5&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы (жалпы) -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    // ---------- 1-тапсырма (сандықтар) функциялары ----------
+    function openSunduk(num) {
+        const panel = document.getElementById('panel' + num);
+        panel.style.display = 'block';
+        const img = document.querySelector(`#sunduk${num} .sunduk-img`);
+        if (img) {
+            img.style.transform = 'scale(1.1) rotate(2deg)';
+            setTimeout(() => img.style.transform = 'scale(1)', 200);
+        }
+    }
+
+    function revealAnswer(num) {
+        const riddle = document.getElementById('riddle' + num);
+        const answerImg = document.getElementById('answerImg' + num);
+        const task = document.getElementById('task' + num);
+        if (riddle) riddle.style.display = 'none';
+        if (answerImg) answerImg.style.display = 'block';
+        if (task) task.style.display = 'block';
+        const sunduk = document.getElementById('sunduk' + num);
+        sunduk.style.boxShadow = '0 0 40px #ffffaa';
+        setTimeout(() => sunduk.style.boxShadow = '', 500);
+    }
+
+    function saveAnswer(num) {
+        let msgDiv = document.getElementById('saveMsg' + num);
+        if (num === 1) {
+            let ans = document.getElementById('answer1').value.trim();
+            msgDiv.innerHTML = ans ? '✅ Жауап сақталды: ' + ans : '❌ Жауап жазыңыз';
+        } else if (num === 2) {
+            let ans = document.getElementById('answer2').value.trim();
+            msgDiv.innerHTML = ans ? '✅ Жауап сақталды: ' + ans : '❌ Жауап жазыңыз';
+        } else if (num === 3) {
+            let selected = document.querySelector('input[name="crystal3"]:checked');
+            msgDiv.innerHTML = selected ? '✅ Таңдалды: ' + selected.value : '❌ Бір нұсқаны таңдаңыз';
+        }
+    }
+
+    // ---------- 2-тапсырма: Асықтар ойыны ----------
+    const metals = ['Na', 'Mg', 'Fe', 'Cu', 'Au', 'Ag', 'Zn', 'Ca', 'Al', 'K'];
+    const nonMetals = ['O₂', 'Cl₂', 'H₂', 'S', 'C', 'N₂', 'P', 'Si', 'I₂', 'He'];
+
+    let allElements = [...metals.map(el => ({ element: el, type: 'metal' })),
+                       ...nonMetals.map(el => ({ element: el, type: 'nonmetal' }))];
+    
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+    allElements = shuffleArray(allElements);
+
+    const asikContainer = document.getElementById('asikContainer');
+    const leftZone = document.getElementById('leftZone');
+    const rightZone = document.getElementById('rightZone');
+
+    function createAsykElements() {
+        asikContainer.innerHTML = '';
+        allElements.forEach((item, index) => {
+            const asik = document.createElement('div');
+            asik.className = 'asik-item';
+            asik.setAttribute('draggable', 'true');
+            asik.setAttribute('data-element', item.element);
+            asik.setAttribute('data-type', item.type);
+            asik.setAttribute('data-id', 'asik-' + index);
+            asik.textContent = item.element;
+            asik.addEventListener('dragstart', handleDragStart);
+            asik.addEventListener('dragend', handleDragEnd);
+            asikContainer.appendChild(asik);
+        });
+    }
+    createAsykElements();
+
+    let draggedElement = null;
+    function handleDragStart(e) {
+        draggedElement = this;
+        e.dataTransfer.setData('text/plain', this.textContent);
+        this.style.opacity = '0.5';
+    }
+    function handleDragEnd(e) {
+        this.style.opacity = '1';
+    }
+
+    [leftZone, rightZone, asikContainer].forEach(zone => {
+        zone.addEventListener('dragover', (e) => e.preventDefault());
+    });
+
+    function handleDrop(e) {
+        e.preventDefault();
+        if (!draggedElement) return;
+        const targetZone = e.target.closest('.zone, #asikContainer, .match-dropzone');
+        if (!targetZone) return;
+        const parent = draggedElement.parentNode;
+        if (parent === targetZone) return;
+        // For match-dropzone, we want to place the text inside the dropzone, not move the element
+        if (targetZone.classList.contains('match-dropzone')) {
+            targetZone.innerText = draggedElement.dataset.value || draggedElement.innerText;
+            // We do not hide the dragged element; it remains in its original container
+        } else {
+            targetZone.appendChild(draggedElement);
+        }
+        draggedElement.style.opacity = '1';
+        draggedElement = null;
+    }
+
+    leftZone.addEventListener('drop', handleDrop);
+    rightZone.addEventListener('drop', handleDrop);
+    asikContainer.addEventListener('drop', handleDrop);
+
+    // Also add drop listeners for match-dropzones
+    document.querySelectorAll('.match-dropzone').forEach(z => {
+        z.addEventListener('drop', handleDrop);
+        z.addEventListener('dragover', (e) => e.preventDefault());
+    });
+
+    document.getElementById('checkAsyk').addEventListener('click', function() {
+        const allAsyks = document.querySelectorAll('.asik-item');
+        allAsyks.forEach(asik => {
+            const type = asik.dataset.type;
+            const parent = asik.parentNode;
+            let correct = false;
+            if (parent.id === 'leftZone' && type === 'nonmetal') correct = true;
+            else if (parent.id === 'rightZone' && type === 'metal') correct = true;
+            if (correct) {
+                asik.classList.add('correct');
+                asik.classList.remove('incorrect');
+            } else {
+                asik.classList.add('incorrect');
+                asik.classList.remove('correct');
+            }
+        });
+    });
+
+    document.getElementById('resetAsyk').addEventListener('click', function() {
+        const allAsyks = document.querySelectorAll('.asik-item');
+        allAsyks.forEach(asik => {
+            asikContainer.appendChild(asik);
+            asik.classList.remove('correct', 'incorrect');
+        });
+    });
+
+    // ---------- 2-апта тесттері ----------
+    function clearHighlight(containerSelector) {
+        document.querySelectorAll(containerSelector + ' label').forEach(l => {
+            l.classList.remove('correct-option', 'incorrect-option');
+        });
+    }
+
+    document.getElementById('checkTest1').addEventListener('click', function() {
+        clearHighlight('#q1Options');
+        clearHighlight('#q2Options');
+
+        const metalRadios = document.querySelectorAll('input[name="metal"]');
+        const waterRadios = document.querySelectorAll('input[name="water"]');
+        let metalSelected = null, waterSelected = null;
+
+        metalRadios.forEach(r => { if (r.checked) metalSelected = r; });
+        waterRadios.forEach(r => { if (r.checked) waterSelected = r; });
+
+        const correctMetal = 'B';
+        const correctWater = 'B';
+
+        metalRadios.forEach(r => {
+            const label = r.parentElement;
+            if (r.value === correctMetal) label.classList.add('correct-option');
+            if (metalSelected && r === metalSelected && r.value !== correctMetal) label.classList.add('incorrect-option');
+        });
+
+        waterRadios.forEach(r => {
+            const label = r.parentElement;
+            if (r.value === correctWater) label.classList.add('correct-option');
+            if (waterSelected && r === waterSelected && r.value !== correctWater) label.classList.add('incorrect-option');
+        });
+
+        let metalCorrect = (metalSelected && metalSelected.value === correctMetal);
+        let waterCorrect = (waterSelected && waterSelected.value === correctWater);
+        let resultDiv = document.getElementById('test1Result');
+        if (metalCorrect && waterCorrect) {
+            resultDiv.innerHTML = '✅ Барлық жауап дұрыс!';
+            resultDiv.className = 'result-message correct';
+        } else {
+            let msg = '❌ Қателер: ';
+            if (!metalCorrect) msg += '1-сұрақ (дұрысы: B) ';
+            if (!waterCorrect) msg += '2-сұрақ (дұрысы: B)';
+            resultDiv.innerHTML = msg;
+            resultDiv.className = 'result-message incorrect';
+        }
+    });
+
+    document.getElementById('resetTest1').addEventListener('click', function() {
+        document.querySelectorAll('input[name="metal"], input[name="water"]').forEach(r => r.checked = false);
+        clearHighlight('#q1Options');
+        clearHighlight('#q2Options');
+        document.getElementById('test1Result').innerHTML = '';
+    });
+
+    const mazeCorrect = {
+        maze1: 'Алтын (Au)',
+        maze2: 'Оттек (O₂)',
+        maze3: 'Кальций (Ca)',
+        maze4: 'Қарағанды',
+        maze5: '43'
+    };
+
+    document.getElementById('checkMaze').addEventListener('click', function() {
+        document.querySelectorAll('.maze-table .options-cell label').forEach(l => {
+            l.classList.remove('correct-option', 'incorrect-option');
+        });
+
+        let correctCount = 0;
+        for (let i = 1; i <= 5; i++) {
+            const name = 'maze' + i;
+            const radios = document.querySelectorAll(`input[name="${name}"]`);
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r; });
+
+            radios.forEach(r => {
+                const label = r.parentElement;
+                if (r.value === mazeCorrect[name]) label.classList.add('correct-option');
+                if (selected && r === selected && r.value !== mazeCorrect[name]) label.classList.add('incorrect-option');
+            });
+
+            if (selected && selected.value === mazeCorrect[name]) correctCount++;
+        }
+
+        let resultDiv = document.getElementById('mazeResult');
+        if (correctCount === 5) {
+            resultDiv.innerHTML = '✅ Барлық жауап дұрыс!';
+            resultDiv.className = 'result-message correct';
+        } else {
+            resultDiv.innerHTML = `❌ ${correctCount} / 5 дұрыс. Қайта тексеріңіз.`;
+            resultDiv.className = 'result-message incorrect';
+        }
+    });
+
+    document.getElementById('resetMaze').addEventListener('click', function() {
+        for (let i = 1; i <= 5; i++) {
+            document.querySelectorAll(`input[name="maze${i}"]`).forEach(r => r.checked = false);
+        }
+        document.querySelectorAll('.maze-table .options-cell label').forEach(l => {
+            l.classList.remove('correct-option', 'incorrect-option');
+        });
+        document.getElementById('mazeResult').innerHTML = '';
+    });
+
+    // ---------- 3-апта match game ----------
+    document.getElementById('checkArtMatch').addEventListener('click', function() {
+        let correct = 0;
+        const drops = document.querySelectorAll('.match-dropzone');
+        drops.forEach(drop => {
+            const expected = drop.dataset.expected;
+            const actual = drop.innerText.trim();
+            drop.classList.remove('correct-drop', 'incorrect-drop');
+            if (actual === expected) {
+                correct++;
+                drop.classList.add('correct-drop');
+            } else {
+                drop.classList.add('incorrect-drop');
+            }
+        });
+        const resultDiv = document.getElementById('artMatchResult');
+        if (correct === drops.length) {
+            resultDiv.innerHTML = '✅ Барлық жұп дұрыс!';
+            resultDiv.className = 'result-message correct';
+        } else {
+            resultDiv.innerHTML = `❌ ${correct} / 5 дұрыс. Қайта тексеріңіз.`;
+            resultDiv.className = 'result-message incorrect';
+        }
+    });
+
+    document.getElementById('resetArtMatch').addEventListener('click', function() {
+        document.querySelectorAll('.match-dropzone').forEach(drop => {
+            drop.innerText = '';
+            drop.classList.remove('correct-drop', 'incorrect-drop');
+        });
+        // Не нужно перемещать drag items, они остаются в контейнере
+    });
+
+    // ---------- Жіберу (жалпы есеп) ----------
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        let report = "==== АҚПАН АЙЫ ЕСЕБІ ====\n\n";
+
+        // 1-тапсырма сандықтар
+        let ans1 = document.getElementById('answer1').value.trim() || '(жауап жоқ)';
+        let ans2 = document.getElementById('answer2').value.trim() || '(жауап жоқ)';
+        let selected3 = document.querySelector('input[name="crystal3"]:checked');
+        let ans3 = selected3 ? selected3.value : '(тандалмады)';
+        report += "1-тапсырма (сандықтар):\n  №1 (сүт) элементтер: " + ans1 + "\n  №2 (сабын) формула: " + ans2 + "\n  №3 (тұз) кристалл торы: " + ans3 + "\n\n";
+
+        // 2-тапсырма асықтар
+        const allAsyks = document.querySelectorAll('.asik-item');
+        let details = [];
+        allAsyks.forEach(asik => {
+            let elem = asik.dataset.element;
+            let type = asik.dataset.type;
+            let parentId = asik.parentNode.id;
+            let position = parentId === 'leftZone' ? 'сол' : (parentId === 'rightZone' ? 'оң' : 'орта');
+            let correct = (parentId === 'leftZone' && type === 'nonmetal') ||
+                          (parentId === 'rightZone' && type === 'metal');
+            details.push(`${elem} (${type}) - ${position} ${correct ? '✔' : '✘'}`);
+        });
+        report += `2-тапсырма (асықтар):\n${details.join('\n')}\n\n`;
+
+        // 2-апта 1-тапсырма
+        let metalAns = document.querySelector('input[name="metal"]:checked')?.value || 'тандалмады';
+        let waterAns = document.querySelector('input[name="water"]:checked')?.value || 'тандалмады';
+        report += `2-апта 1-тапсырма:\n  1-сұрақ: ${metalAns}\n  2-сұрақ: ${waterAns}\n`;
+
+        // 2-апта 2-тапсырма
+        let mazeAnswers = [];
+        for (let i = 1; i <= 5; i++) {
+            let sel = document.querySelector(`input[name="maze${i}"]:checked`);
+            mazeAnswers.push(sel ? sel.value : 'тандалмады');
+        }
+        report += `2-апта 2-тапсырма:\n  1. ${mazeAnswers[0]}\n  2. ${mazeAnswers[1]}\n  3. ${mazeAnswers[2]}\n  4. ${mazeAnswers[3]}\n  5. ${mazeAnswers[4]}\n\n`;
+
+        // 3-апта match game
+        const artDrops = document.querySelectorAll('.match-dropzone');
+        let artMatches = [];
+        artDrops.forEach((drop, idx) => {
+            let artName = drop.parentElement.parentElement.cells[0].innerText;
+            let placed = drop.innerText.trim() || '(бос)';
+            artMatches.push(`${artName} -> ${placed}`);
+        });
+        report += `3-апта 1-тапсырма (өнер мен химия):\n  ${artMatches.join('\n  ')}\n`;
+
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+
+    // Бастапқыда сандық панелдерін жасыру
+    window.onload = function() {
+        document.querySelectorAll('.question-panel').forEach(p => p.style.display = 'none');
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Бейнелер</title>
+    <style>
+        /* === Жалпы стильдер (дәл алдыңғы сайттан алынды) === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        /* Химиялық декор */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 40px;
+        }
+
+        /* Екі блокқа арналған контейнер (ені кеңейтілді) */
+        .blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            flex: 1 1 400px;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 40px #ffffaa;
+        }
+
+        /* Бейне айдары */
+        .video-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3e50;
+            text-shadow: 0 0 5px #ffdd99;
+            margin-bottom: 15px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px;
+            border-radius: 40px;
+            border: 1px solid white;
+        }
+
+        /* iframe стилі */
+        .card iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 30px 20px 30px 20px;
+            border: 3px solid white;
+            box-shadow: 0 0 25px rgba(255, 240, 200, 0.8);
+            background: #f0e8ff;
+        }
+
+        /* Адаптация */
+        @media (max-width: 700px) {
+            .title { font-size: 1.8rem; }
+            .subtitle { font-size: 1.2rem; }
+            .video-title { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Жоғарғы бөлік (тақырып айдары) -->
+        <div class="title">Адал азамат | Жасанды интеллект әлемі</div>
+        <div class="subtitle">Видеолар жинағы — әр айға арналған тақырыптық роликтер</div>
+
+        <!-- Барлық видео карточкалары -->
+        <div class="blocks">
+            <!-- 1. Қыркүйек – Еңбекқорлық және кәсіби біліктілік -->
+            <div class="card">
+                <div class="video-title">Қыркүйек – Еңбекқорлық және кәсіби біліктілік</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/c7cLml_a7vM" title="Қыркүйек бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <!-- 2. Қазан – Тәуелсіздік және отаншылдық -->
+            <div class="card">
+                <div class="video-title">Қазан – Тәуелсіздік және отаншылдық</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/yH_5hnY3fUU?si=O0TdE-Zd_jLyn2g6" title="Қазан бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 3. Қараша – Әділдік және жауапкершілік -->
+            <div class="card">
+                <div class="video-title">Қараша – Әділдік және жауапкершілік</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/xKDHOQFn72c?si=UgqNuhMsVxS2EpOO" title="Қараша бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 4. Желтоқсан – Бірлік және ынтымақ -->
+            <div class="card">
+                <div class="video-title">Желтоқсан – Бірлік және ынтымақ</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/JFVl0NrFfL4?si=XfNyipzO12Z_BtSn" title="Желтоқсан бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 5. Қаңтар – Заң және тәртіп -->
+            <div class="card">
+                <div class="video-title">Қаңтар – Заң және тәртіп</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/uS8SI_EsZzA?si=TrDXOEhG4iQWpIVV" title="Қаңтар бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 6. Ақпан – Жасампаздық және жаңашылдық -->
+            <div class="card">
+                <div class="video-title">Ақпан – Жасампаздық және жаңашылдық</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/C1N0UF_gQ4A?si=V1Akk-rWlBuk3Tj3" title="Ақпан бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 7. Наурыз – Тәуелсіздік және отаншылдық -->
+            <div class="card">
+                <div class="video-title">Наурыз – Тәуелсіздік және отаншылдық</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/yH_5hnY3fUU?si=ct0rMHDDNcfs--Vn" title="Наурыз бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 8. Сәуір – Еңбекқорлық және кәсіби біліктілік -->
+            <div class="card">
+                <div class="video-title">Сәуір – Еңбекқорлық және кәсіби біліктілік</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/c7cLml_a7vM?si=wJBakT4YEiQT15Ge" title="Сәуір бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 9. Мамыр – Бірлік және ынтымақ -->
+            <div class="card">
+                <div class="video-title">Мамыр – Бірлік және ынтымақ</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/JFVl0NrFfL4?si=j2XHX9XSbuPsmLT0" title="Мамыр бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 10. Маусым – Жасампаздық және жаңашылдық -->
+            <div class="card">
+                <div class="video-title">Маусым – Жасампаздық және жаңашылдық</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/C1N0UF_gQ4A?si=gkWYjG6RAg948_12" title="Маусым бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 11. Шілде – Заң және тәртіп -->
+            <div class="card">
+                <div class="video-title">Шілде – Заң және тәртіп</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/uS8SI_EsZzA?si=CKZoypqw2o2jMYxf" title="Шілде бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <!-- 12. Тамыз – Заң және тәртіп -->
+            <div class="card">
+                <div class="video-title">Тамыз – Заң және тәртіп</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/uS8SI_EsZzA?si=7Ngiz09SNj60-ZIO" title="Тамыз бейне" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

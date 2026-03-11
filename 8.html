@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Қазан айы – Тәуелсіздік және отаншылдық</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .iframe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .iframe-container iframe {
+            max-width: 100%;
+            border: 3px solid white;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.8);
+            background: white;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin: 20px 0 10px;
+        }
+
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 15px;
+        }
+
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+
+        hr {
+            border: 2px solid white;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Ай және апта атауы -->
+    <div class="title">Қазан айы – Тәуелсіздік және отаншылдық айы</div>
+    <div class="subtitle">1-апта: Апта дәйексөзі: «Ел-жұртымның бақыты аталатын, сөнбесін мәңгі сенің, Отан, атың!»</div>
+
+    <!-- 1-тапсырма (1-апта) -->
+    <div class="task-header">1-тапсырма: «Қазақстанның Химиялық Байлығы»</div>
+    <div class="task-goal">
+        <strong>Тапсырманың мәтіні:</strong> Қазақстан – байлығы мол ел. Біздің жер қойнауында химия өнеркәсібіне қажетті көптеген элементтер бар. Төменде Қазақстанның қай аймағында қандай пайдалы қазбалар өндірілетіні көрсетілген. Әр қазбаны өзінің химиялық белгісімен және қолданылуымен сәйкестендір.
+    </div>
+    <!-- Wordwall embed -->
+    <div class="iframe-container">
+        <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/9ecc349435a0485dab8ae58dccc16ce7?themeId=1&templateId=3&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Қорытынды сұрақ + 2-тапсырма (1-апта) -->
+    <div class="card">
+        <div class="question-text">Қорытынды сұрақ:</div>
+        <p style="font-size:1.2rem; margin-bottom:15px;">Балалар, Қазақстан жер қойнауы осындай байлыққа толы. Осы байлықтарды өндіру, өңдеу үшін қандай мамандықтар керек? Біз бұл байлықтарды қалай тиімді пайдалана аламыз?</p>
+        <textarea id="q1_1" class="answer-area" rows="4" placeholder="Жауабыңыз..."></textarea>
+
+        <div class="question-text">2-тапсырма: «Менің Отаныма үлес қосуым» тақырыбында өз ойыңызды білдіріңіз?</div>
+        <textarea id="q1_2" class="answer-area" rows="4" placeholder="Ойыңыз..."></textarea>
+    </div>
+
+    <!-- 2-апта -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі «Туған жердей жер болмас, туған елдей ел болмас!»</div>
+        <div class="task-header">1-тапсырма: «ОТАНДЫҚ ӨНДІРІС» (Тест сұрақтары)</div>
+        <div class="task-goal"><strong>Ойын мақсаты:</strong> Қазақстанда өндірілетін пайдалы қазбалар мен химиялық өнімдер туралы білімдерін тексеру.</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/9ecc349435a0485dab8ae58dccc16ce7?themeId=1&templateId=3&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <!-- Бұл жерде тест болғандықтан қосымша жауап өрісі жоқ, тек көруге арналған -->
+        <p style="text-align:center; color:#335;">Интерактивті тапсырманы орындаңыз.</p>
+    </div>
+
+    <!-- 3-апта -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі «Отанды сүю - отбасынан басталады!»</div>
+        <div class="card">
+            <div class="question-text">1-тапсырма: Отанның «сөнбес атын» сақтау үшін химия ғылымы қалай көмектесе алады?</div>
+            <textarea id="q3_1" class="answer-area" rows="3" placeholder="Пікіріңіз..."></textarea>
+
+            <div class="question-text">2-тапсырма: Өзіңнің болашақ мамандығың Отанның дамуына қалай әсер етеді?</div>
+            <textarea id="q3_2" class="answer-area" rows="3" placeholder="Ойыңыз..."></textarea>
+        </div>
+    </div>
+
+    <!-- 4-апта -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Апта дәйексөзі «Отаным - алтын бесігім!»</div>
+        <div class="card">
+            <div class="question-text">1-тапсырма: «ОТАН – БІР ТҰТАС ХИМИЯЛЫҚ ЖҮЙЕ»</div>
+            <textarea id="q4_1" class="answer-area" rows="3" placeholder="Осы тақырып бойынша ойыңыз..."></textarea>
+
+            <div class="question-text">2-тапсырма: Тест тапсырмалары (өз жауаптарыңызды жазыңыз)</div>
+            <textarea id="q4_2" class="answer-area" rows="3" placeholder="Тест сұрақтарына жауаптар..."></textarea>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        // 1-апта жауаптары
+        const q1_1 = document.getElementById('q1_1').value.trim() || 'жауап жоқ';
+        const q1_2 = document.getElementById('q1_2').value.trim() || 'жауап жоқ';
+
+        // 3-апта
+        const q3_1 = document.getElementById('q3_1').value.trim() || 'жауап жоқ';
+        const q3_2 = document.getElementById('q3_2').value.trim() || 'жауап жоқ';
+
+        // 4-апта
+        const q4_1 = document.getElementById('q4_1').value.trim() || 'жауап жоқ';
+        const q4_2 = document.getElementById('q4_2').value.trim() || 'жауап жоқ';
+
+        // Құрастыру
+        let report = "==== ҚАЗАН АЙЫ ЕСЕБІ ====\n";
+        report += "1-АПТА:\n";
+        report += "Қорытынды сұрақ: " + q1_1 + "\n";
+        report += "Менің Отаныма үлес қосуым: " + q1_2 + "\n\n";
+
+        report += "3-АПТА:\n";
+        report += "Химия ғылымы Отан атын сақтау: " + q3_1 + "\n";
+        report += "Болашақ мамандықтың әсері: " + q3_2 + "\n\n";
+
+        report += "4-АПТА:\n";
+        report += "Отан – бір тұтас химиялық жүйе: " + q4_1 + "\n";
+        report += "Тест тапсырмалары: " + q4_2 + "\n";
+
+        // WhatsApp
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+<!-- Ескерту: 2-аптада тек интерактивті тест, ол есепке енбеді, себебі жауаптарды жинау мүмкін емес -->
+</body>
+</html>

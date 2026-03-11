@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Желтоқсан – Бірлік және ынтымақ айы</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin: 20px 0 10px;
+        }
+
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .pyramid-layer {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+            width: 100%;
+        }
+        .pyramid-layer textarea {
+            background: rgba(255, 255, 200, 0.7);
+            border: 3px solid white;
+            border-radius: 30px;
+            padding: 12px;
+            font-size: 1rem;
+            resize: vertical;
+            text-align: center;
+            font-weight: bold;
+            color: #1e3c5c;
+            box-shadow: 0 0 10px white;
+        }
+        /* 8 қабат пирамида – ені артады */
+        .layer1 textarea { width: 20%; }
+        .layer2 textarea { width: 30%; }
+        .layer3 textarea { width: 40%; }
+        .layer4 textarea { width: 50%; }
+        .layer5 textarea { width: 60%; }
+        .layer6 textarea { width: 70%; }
+        .layer7 textarea { width: 80%; }
+        .layer8 textarea { width: 90%; }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .check-btn, .reset-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+        .reset-btn {
+            background: #ffcc99;
+            box-shadow: 0 0 20px #ffaa66;
+        }
+        .check-btn:hover, .reset-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        .result-message {
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .correct { background: #ccffcc; }
+        .incorrect { background: #ffcccc; }
+
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+        hr {
+            border: 2px solid white;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Ай және апта атауы -->
+    <div class="title">Желтоқсан айы – Бірлік және ынтымақ айы</div>
+    
+    <!-- ========== 1-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">1-апта: Апта дәйексөзі: «Бірлігі күшті ел озады»</div>
+        
+        <!-- 1-тапсырма: Пирамида -->
+        <div class="task-header">1-тапсырма: ХИМИЯЛЫҚ БІРЛІК ПИРАМИДАСЫ</div>
+        <div class="task-goal">Визуалды тапсырма: Төмендегі пирамиданы толтыр. Әр қабатқа біріккен сайын күшейетін заттарды жаз.</div>
+        <div class="card">
+            <div class="pyramid">
+                <div class="pyramid-layer layer1"><textarea placeholder="1-қабат"></textarea></div>
+                <div class="pyramid-layer layer2"><textarea placeholder="2-қабат"></textarea></div>
+                <div class="pyramid-layer layer3"><textarea placeholder="3-қабат"></textarea></div>
+                <div class="pyramid-layer layer4"><textarea placeholder="4-қабат"></textarea></div>
+                <div class="pyramid-layer layer5"><textarea placeholder="5-қабат"></textarea></div>
+                <div class="pyramid-layer layer6"><textarea placeholder="6-қабат"></textarea></div>
+                <div class="pyramid-layer layer7"><textarea placeholder="7-қабат"></textarea></div>
+                <div class="pyramid-layer layer8"><textarea placeholder="8-қабат"></textarea></div>
+            </div>
+        </div>
+
+        <!-- 2-тапсырма: Пазл + тексеру -->
+        <div class="task-header">2-тапсырма: ХИМИЯЛЫҚ БІРЛІК ПАЗЛЫ</div>
+        <div class="card">
+            <p style="margin-bottom:20px;">Төмендегі пазл бөліктері берілген. Әр бөлікте бір химиялық элемент немесе қосылыс жасырылған. Оларды дұрыс біріктіріп, сөз құрастырыңыз.</p>
+            <div class="question-text">1. Қай бөліктерді біріктірсең су молекуласы шығады? (H₂O)</div>
+            <input type="text" id="puzzle1" class="answer-area" placeholder="Жауап (мысалы: H2, O)" style="width:100%;">
+            <div class="question-text">2. Қай бөліктерді біріктірсең аммиак молекуласы шығады? (NH₃)</div>
+            <input type="text" id="puzzle2" class="answer-area" placeholder="Жауап (мысалы: N, H3)" style="width:100%;">
+            <div class="button-group">
+                <button class="check-btn" id="checkPuzzle">Тексеру</button>
+                <button class="reset-btn" id="resetPuzzle">Қайта бастау</button>
+            </div>
+            <div id="puzzleResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- ========== 2-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі: «Ынтымақ жүрген жерде ырыс бірге жүреді»</div>
+        <div class="task-header">1-тапсырма: «ЫНТЫМАҚТЫ ТАП» (Визуалды сәйкестендіру ойыны)</div>
+        <div class="task-goal">
+            <strong>Мақсаты:</strong> «Ынтымақ» ұғымын химиялық байланыстар мен қосылыстар арқылы түсіндіру. Ынтымағы жарасқан адамдар қалай бірлесіп жұмыс істесе, химиялық элементтер де бірігіп жаңа сапалы заттар түзеді.<br>
+            <strong>Құндылықтар:</strong> Ынтымақ, Ырыс, Береке.
+        </div>
+        <div class="card">
+            <div class="question-text">Ынтымақты табу үшін өз ойыңызды жазыңыз:</div>
+            <textarea id="w2_1" class="answer-area" rows="4" placeholder="Қандай химиялық байланыстар ынтымақты бейнелейді? Мысал келтір..."></textarea>
+        </div>
+
+        <div class="task-header">2-тапсырма: ЫНТЫМАҚ ПАЗЛЫ</div>
+        <div class="card">
+            <div class="question-text">Төмендегі пазл бөліктерін дұрыс құрастырыңыз. Ынтымақ арқылы қандай «ырыс» (пайдалы өнім) алынатынын жазыңыз.</div>
+            <textarea id="w2_2" class="answer-area" rows="4" placeholder="Мысалы: сутек + оттегі = су (өмірлік ырыс) ..."></textarea>
+        </div>
+    </div>
+
+    <!-- ========== 3-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі: «Бірлік болмай тірлік болмас»</div>
+        <div class="task-header">1-тапсырма: «ЗЕРТХАНАДАҒЫ ТУРА БИ»</div>
+        <div class="card">
+            <div class="question-text">Жағдаят 1:</div>
+            <p>Екі оқушы бір топта жұмыс істейді. Біреуі тәжірибені дұрыс жасап, нәтижесін дәптерге жазып алды. Екіншісі тәжірибе жасамай, біріншінің нәтижесін көшіріп алды. Мұғалім екеуіне бірдей баға қойды.</p>
+            <div class="question-text">Бұл жағдай әділ ме? Неліктен?</div>
+            <textarea id="w3_1a" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Әділ шешім қандай болу керек?</div>
+            <textarea id="w3_1b" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+
+            <div class="question-text" style="margin-top:30px;">Жағдаят 2:</div>
+            <p>Бір оқушы тәжірибе кезінде қателесіп, қышқылды шашып алды. Ол бұл туралы мұғалімге айтпай, өзі сүртіп тастады. Келесі топтағы оқушы сол жерде тұрып, аяғы тайып құлады.</p>
+            <div class="question-text">Бірінші оқушының әрекеті қандай жауапкершілікке әкелді?</div>
+            <textarea id="w3_2a" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Әділдік пен жауапкершілік тұрғысынан дұрыс әрекет қандай болу керек еді?</div>
+            <textarea id="w3_2b" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+        </div>
+
+        <div class="task-header">2-тапсырма: «Топтық жұмыс»</div>
+        <div class="card">
+            <p>Топтық жұмыс кезінде сен барлық тапсырманы орындадың, ал сыныптастарың ештеңе істемеді. Мұғалім бәріңе бірдей баға қойды. Бұл әділетсіздік екенін сезесің.</p>
+            <div class="question-text">Сен не істейсің? Әділдікті қалай талап етесің?</div>
+            <textarea id="w3_3a" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Себебі:</div>
+            <textarea id="w3_3b" class="answer-area" rows="2" placeholder="Себебі..."></textarea>
+        </div>
+    </div>
+
+    <!-- ========== 4-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Аптаның дәйексөзі: «Ынтымақ - бұзылмайтын қорған»</div>
+        <div class="task-header">1-тапсырма: «ХИМИЯЛЫҚ ҚОРҒАН» (Теориялық тапсырма)</div>
+        <div class="task-goal">
+            <strong>Мақсаты:</strong> Химиялық байланыстар мен қосылыстардың беріктігін «ынтымақ» және «қорған» ұғымдарымен байланыстырып, оқушылардың бойына бірліктің беріктік әперетінін сіңіру.
+        </div>
+        <div class="card">
+            <div class="question-text">1-сұрақ:</div>
+            <p>Төмендегі кестеде әртүрлі химиялық құрылымдар мен олардың беріктігі көрсетілген. Осы құрылымдарды «ынтымақ – бұзылмайтын қорған» дәйексөзімен салыстыр.</p>
+            <textarea id="w4_1" class="answer-area" rows="5" placeholder="Мысалы: алмаз – күшті ковалентті байланыс, ынтымақтың символы..."></textarea>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    // Пазл тексеру
+    document.getElementById('checkPuzzle').addEventListener('click', function() {
+        const ans1 = document.getElementById('puzzle1').value.trim().toLowerCase().replace(/\s+/g, '');
+        const ans2 = document.getElementById('puzzle2').value.trim().toLowerCase().replace(/\s+/g, '');
+        const resultDiv = document.getElementById('puzzleResult');
+        let correct1 = (ans1 === 'h2o' || ans1 === 'h2o' || ans1 === 'h2o' || ans1 === 'h2o' || ans1.includes('h2') && ans1.includes('o')); // flexible
+        let correct2 = (ans2 === 'nh3' || ans2 === 'nh3' || ans2 === 'nh3' || ans2.includes('n') && ans2.includes('h3'));
+        // Дәлірек: күтілетін жауаптар H2O және NH3
+        if (ans1 === 'h2o' || ans1 === 'h2o' || ans1 === 'h₂o' || ans1 === 'h2o') correct1 = true;
+        if (ans2 === 'nh3' || ans2 === 'nh3' || ans2 === 'nh₃' || ans2 === 'nh3') correct2 = true;
+
+        let msg = '';
+        if (correct1 && correct2) msg = '✅ Барлық жауап дұрыс!';
+        else if (!correct1 && !correct2) msg = '❌ Екі жауап та дұрыс емес.';
+        else if (!correct1) msg = '❌ Бірінші жауап қате. (Дұрысы: H2O)';
+        else msg = '❌ Екінші жауап қате. (Дұрысы: NH3)';
+        resultDiv.innerHTML = msg;
+        resultDiv.classList.remove('correct','incorrect');
+        if (correct1 && correct2) resultDiv.classList.add('correct');
+        else resultDiv.classList.add('incorrect');
+    });
+
+    document.getElementById('resetPuzzle').addEventListener('click', function() {
+        document.getElementById('puzzle1').value = '';
+        document.getElementById('puzzle2').value = '';
+        document.getElementById('puzzleResult').innerHTML = '';
+    });
+
+    // Жіберу
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        let report = "==== ЖЕЛТОҚСАН АЙЫ ЕСЕБІ ====\n";
+
+        // Пирамида (8 қабат)
+        const layers = document.querySelectorAll('.pyramid-layer textarea');
+        report += "\n1-АПТА: Пирамида қабаттары:\n";
+        layers.forEach((layer, idx) => {
+            report += `  ${idx+1}-қабат: ${layer.value.trim() || 'бос'}\n`;
+        });
+
+        // Пазл
+        const p1 = document.getElementById('puzzle1').value.trim() || 'бос';
+        const p2 = document.getElementById('puzzle2').value.trim() || 'бос';
+        report += `\nПазл жауаптары:\n  1. Су молекуласы: ${p1}\n  2. Аммиак: ${p2}\n`;
+
+        // 2-апта
+        const w2_1 = document.getElementById('w2_1').value.trim() || 'бос';
+        const w2_2 = document.getElementById('w2_2').value.trim() || 'бос';
+        report += `\n2-АПТА:\n  Ынтымақты тап: ${w2_1}\n  Ынтымақ пазлы (ырыс): ${w2_2}\n`;
+
+        // 3-апта
+        const w3_1a = document.getElementById('w3_1a').value.trim() || 'бос';
+        const w3_1b = document.getElementById('w3_1b').value.trim() || 'бос';
+        const w3_2a = document.getElementById('w3_2a').value.trim() || 'бос';
+        const w3_2b = document.getElementById('w3_2b').value.trim() || 'бос';
+        const w3_3a = document.getElementById('w3_3a').value.trim() || 'бос';
+        const w3_3b = document.getElementById('w3_3b').value.trim() || 'бос';
+        report += `\n3-АПТА:\n  Жағдаят1 - Әділ ме? ${w3_1a}\n  Жағдаят1 - Шешім: ${w3_1b}\n  Жағдаят2 - Жауапкершілік: ${w3_2a}\n  Жағдаят2 - Дұрыс әрекет: ${w3_2b}\n  Топтық жұмыс - Әрекет: ${w3_3a}\n  Себебі: ${w3_3b}\n`;
+
+        // 4-апта
+        const w4_1 = document.getElementById('w4_1').value.trim() || 'бос';
+        report += `\n4-АПТА:\n  Химиялық қорған салыстыру: ${w4_1}\n`;
+
+        // WhatsApp
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+</body>
+</html>

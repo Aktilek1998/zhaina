@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | ҚМЖ Тәрбие сағаты</title>
+    <style>
+        /* === Жалпы стильдер (дәл алдыңғы сайттардан) === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        /* Химиялық декор */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 30px;
+        }
+
+        /* Карточка для embed */
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+            transition: 0.2s;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 40px #ffffaa;
+        }
+
+        /* Стиль для embed контейнера (берілген код бойынша) */
+        .embed-container {
+            left: 0;
+            width: 100%;
+            height: 0;
+            position: relative;
+            padding-bottom: 129.4118%; /* пропорция берілген */
+            border-radius: 40px 20px 40px 20px;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: 0 0 25px rgba(255, 240, 200, 0.8);
+        }
+
+        .embed-container iframe {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 0;
+        }
+
+        /* Жүктеу кнопкасы (дәл send-btn стилінде) */
+        .download-btn {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 10px;
+            padding: 15px 50px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2d3e50;
+            background: #ffcc99;
+            border: 4px solid white;
+            border-radius: 60px;
+            box-shadow: 0 0 30px #ffaa66, inset 0 0 15px white;
+            cursor: pointer;
+            transition: 0.2s;
+            text-shadow: 0 0 5px white;
+            text-decoration: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.02);
+            background: #ffbb88;
+            box-shadow: 0 0 40px #ffaa88;
+        }
+
+        /* Адаптация */
+        @media (max-width: 700px) {
+            .title { font-size: 1.8rem; }
+            .download-btn { font-size: 1.5rem; padding: 12px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Қысқа мерзімдік жоспарлар (ҚМЖ) <br> Тәрбие сағаты</div>
+
+        <!-- Карточка с Google Docs embed (берілген код) -->
+        <div class="card">
+            <div class="embed-container">
+                <iframe src="https://docs.google.com/document/d/1Q7KXTOmI4LpPvZoVxwv52JS-T_9H66mo/preview?usp=embed_googleplus" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Жүктеу кнопкасы -->
+        <button class="download-btn" id="downloadBtn">Жүктеу</button>
+        <p style="text-align: center; color: #2d3e50; background: rgba(255,255,240,0.6); padding: 8px; border-radius: 40px; margin-top: 20px;">
+            Тәрбие сағатына ҚМЖ (docx)
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Файл жолы (дәл сілтеме бойынша)
+            const fileUrl = 'img/Тәрбие_сағатына_ҚМЖ_.docx';
+            
+            // Уақытша сілтеме жасап, жүктеуді бастау
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'Тәрбие_сағатына_ҚМЖ_.docx'; // жүктелетін файл аты
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>

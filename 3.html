@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Қараша – Әділдік және жауапкершілік айы</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin: 20px 0 10px;
+        }
+
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 10px 0 20px;
+            background: rgba(255,255,240,0.6);
+            padding: 15px;
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+        .radio-group label {
+            font-size: 1.1rem;
+            margin-right: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 15px 0;
+            box-shadow: 0 0 15px white;
+        }
+        th, td {
+            border: 2px solid white;
+            padding: 15px;
+            text-align: left;
+            color: #1a1a2e;
+            font-weight: 500;
+            background: rgba(255, 255, 240, 0.8);
+        }
+        th {
+            background: #ffcc99;
+            text-align: center;
+            font-weight: bold;
+        }
+        td textarea {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid white;
+            padding: 8px;
+            background: rgba(255,255,255,0.8);
+            resize: vertical;
+        }
+
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+
+        hr {
+            border: 2px solid white;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        .small-note {
+            color: #335;
+            font-size: 1rem;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Ай және апта атауы -->
+    <div class="title">Қараша айы – Әділдік және жауапкершілік айы</div>
+    
+    <!-- ========== 1-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">1-апта: Апта дәйексөзі: «Әділдік пен жауапкершілік - біртұтас ұғым!»</div>
+        
+        <!-- 1-тапсырма: тест -->
+        <div class="task-header">1-тапсырма: «ЖАУАПКЕРШІЛІК – РЕАКТИВТЕРДІҢ САПАСЫ» (Тест сұрақтары)</div>
+        <div class="task-goal"><strong>Ойын мақсаты:</strong> Зертханадағы жауапкершілік пен химиялық қауіпсіздік ережелерін бекіту.</div>
+        <div class="card">
+            <div class="question-text">1. Зертханада қышқылмен жұмыс істегенде қандай қорғаныс құралдары міндетті?</div>
+            <div class="radio-group" id="test1">
+                <label><input type="radio" name="w1_test1" value="Халат, көзілдірік, қолғап"> Халат, көзілдірік, қолғап</label>
+                <label><input type="radio" name="w1_test1" value="Тек халат"> Тек халат</label>
+                <label><input type="radio" name="w1_test1" value="Ешқандай"> Ешқандай</label>
+            </div>
+            <div class="question-text">2. Реактивтің иісін қалай дұрыс тексеру керек?</div>
+            <div class="radio-group" id="test2">
+                <label><input type="radio" name="w1_test2" value="Қолмен желпіп, абайлап"> Қолмен желпіп, абайлап</label>
+                <label><input type="radio" name="w1_test2" value="Тіке мұрынға апарып"> Тіке мұрынға апарып</label>
+                <label><input type="radio" name="w1_test2" value="Иіскеуге болмайды"> Иіскеуге болмайды</label>
+            </div>
+            <div class="question-text">3. Жауапкершілік дегеніміз не?</div>
+            <div class="radio-group" id="test3">
+                <label><input type="radio" name="w1_test3" value="Өз әрекетіңнің нәтижесі үшін жауап беру"> Өз әрекетіңнің нәтижесі үшін жауап беру</label>
+                <label><input type="radio" name="w1_test3" value="Мұғалімді тыңдау"> Мұғалімді тыңдау</label>
+                <label><input type="radio" name="w1_test3" value="Ештеңе істемеу"> Ештеңе істемеу</label>
+            </div>
+        </div>
+
+        <!-- 2-тапсырма: теңдеу -->
+        <div class="task-header">2-тапсырма: «ЖАУАПКЕРШІЛІК ТЕҢДЕУІ»</div>
+        <div class="card">
+            <div class="question-text">Жауапкершілік теңдеуі: өз сөзіңізбен жауапкершілік ұғымын қалай түсінесіз?</div>
+            <textarea id="w1_2" class="answer-area" rows="4" placeholder="Жауабыңыз..."></textarea>
+        </div>
+    </div>
+
+    <!-- ========== 2-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі: «Тура биде туған жоқ!»</div>
+        <div class="task-goal">
+            <strong>Негізгі мақсаты:</strong> «Тура биде туған жоқ» дәйексөзінің мәнін химия ғылымындағы объективтілік, дәлдік және шындыққа негізделген заңдылықтар арқылы түсіндіру.<br>
+            <strong>Оқушыға қалыптастыратын құндылығы:</strong> Әділдік, объективтілік, адалдық, жауапкершілік.
+        </div>
+        <div class="task-header">1-тапсырма: «ЗЕРТХАНАДАҒЫ ТУРА БИ»</div>
+        <div class="card">
+            <div class="question-text">Жағдаят 1:</div>
+            <p>Екі оқушы бір топта жұмыс істейді. Біреуі тәжірибені дұрыс жасап, нәтижесін дәптерге жазып алды. Екіншісі тәжірибе жасамай, біріншінің нәтижесін көшіріп алды. Мұғалім екеуіне бірдей баға қойды.</p>
+            <div class="question-text">Бұл жағдай әділ ме? Неліктен?</div>
+            <textarea id="w2_1a" class="answer-area" rows="3" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Әділ шешім қандай болу керек?</div>
+            <textarea id="w2_1b" class="answer-area" rows="3" placeholder="Жауабы..."></textarea>
+
+            <div class="question-text" style="margin-top:30px;">Жағдаят 2:</div>
+            <p>Бір оқушы тәжірибе кезінде қателесіп, қышқылды шашып алды. Ол бұл туралы мұғалімге айтпай, өзі сүртіп тастады. Келесі топтағы оқушы сол жерде тұрып, аяғы тайып құлады.</p>
+            <div class="question-text">Бірінші оқушының әрекеті қандай жауапкершілікке әкелді?</div>
+            <textarea id="w2_2a" class="answer-area" rows="3" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Әділдік пен жауапкершілік тұрғысынан дұрыс әрекет қандай болу керек еді?</div>
+            <textarea id="w2_2b" class="answer-area" rows="3" placeholder="Жауабы..."></textarea>
+        </div>
+    </div>
+
+    <!-- ========== 3-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі: «Жауапкершілік - адамгершілік қасиеттің көрінісі»</div>
+        <div class="task-header">1-тапсырма: ЖАУАПКЕРШІЛІК ДЕКЛАРАЦИЯСЫ</div>
+        <div class="task-goal"><strong>Мақсаты:</strong> Өзіңнің химия зертханасындағы жауапкершілік декларацияңды жаз. 5 ережеден тұратын кодекс құрастыр.</div>
+        <div class="card">
+            <div class="question-text">МЕНІҢ ЖАУАПКЕРШІЛІК ДЕКЛАРАЦИЯМ</div>
+            <textarea id="w3_1" class="answer-area" rows="6" placeholder="5 ереже..."></textarea>
+        </div>
+
+        <div class="task-header">2-тапсырма: Сұрақтарға толық жауап беріңіз.</div>
+        <table>
+            <tr><th>№</th><th>Сұрақ</th><th>Жауап</th></tr>
+            <tr><td>1</td><td>Бүгінгі тапсырмадан қандай жаңа құндылық үйрендің?</td><td><textarea id="w3_2_1" rows="3"></textarea></td></tr>
+            <tr><td>2</td><td>«Жауапкершілік - адамгершілік қасиеттің көрінісі» дегенді өмірде қалай қолданасың?</td><td><textarea id="w3_2_2" rows="3"></textarea></td></tr>
+            <tr><td>3</td><td>Химия сабағындағы қандай әрекеттер жауапкершілікті қажет етеді?</td><td><textarea id="w3_2_3" rows="3"></textarea></td></tr>
+            <tr><td>4</td><td>Өзіңді жауапкершіл адаммын деп есептейсің бе? Неліктен?</td><td><textarea id="w3_2_4" rows="3"></textarea></td></tr>
+        </table>
+    </div>
+
+    <!-- ========== 4-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Апта дәйексөзі: «Әділетте берік болсаң аяғың таймайды!»</div>
+        <div class="task-header">1-тапсырма: «ХИМИЯЛЫҚ ТАБАНДЫЛЫҚ»</div>
+        <div class="task-goal">
+            <strong>Тапсырма мақсаты:</strong> Төмендегі жағдаяттарды оқып, әрқайсысына жауап бер. Әділдіктен таймау үшін қалай әрекет ету керек?<br>
+            <strong>Қалыптастыратын құндылықтар:</strong> Әділдікте берік болу, тұрақтылық, сенімділік.
+        </div>
+        <div class="card">
+            <div class="question-text">Жағдаят 1: «Сынақтағы сын»</div>
+            <p>Сен химиядан сынақ тапсырып жатырсың. Досың сыбырлап жауап сұрап жатыр. Егер оған көмектеспесең, ол ренжіді. Бірақ егер көмектессең, бұл әділетсіздік болады.</p>
+            <div class="question-text">Сенің әрекетің қандай? Әділдікте берік бола аласың ба?</div>
+            <textarea id="w4_1a" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Себебі:</div>
+            <textarea id="w4_1b" class="answer-area" rows="2" placeholder="Себебі..."></textarea>
+
+            <div class="question-text" style="margin-top:30px;">2-тапсырма: «Топтық жұмыс»</div>
+            <p>Топтық жұмыс кезінде сен барлық тапсырманы орындадың, ал сыныптастарың ештеңе істемеді. Мұғалім бәріңе бірдей баға қойды. Бұл әділетсіздік екенін сезесің.</p>
+            <div class="question-text">Сен не істейсің? Әділдікті қалай талап етесің?</div>
+            <textarea id="w4_2a" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Себебі:</div>
+            <textarea id="w4_2b" class="answer-area" rows="2" placeholder="Себебі..."></textarea>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        // Жинақтау
+        let report = "==== ҚАРАША АЙЫ ЕСЕБІ ====\n";
+
+        // 1-апта тест
+        const w1_test1 = document.querySelector('input[name="w1_test1"]:checked')?.value || 'таңдалмады';
+        const w1_test2 = document.querySelector('input[name="w1_test2"]:checked')?.value || 'таңдалмады';
+        const w1_test3 = document.querySelector('input[name="w1_test3"]:checked')?.value || 'таңдалмады';
+        const w1_2 = document.getElementById('w1_2').value.trim() || 'жауап жоқ';
+
+        report += "\n1-АПТА:\n";
+        report += "1-тест сұрағы: " + w1_test1 + "\n";
+        report += "2-тест сұрағы: " + w1_test2 + "\n";
+        report += "3-тест сұрағы: " + w1_test3 + "\n";
+        report += "Жауапкершілік теңдеуі: " + w1_2 + "\n";
+
+        // 2-апта
+        const w2_1a = document.getElementById('w2_1a').value.trim() || 'жауап жоқ';
+        const w2_1b = document.getElementById('w2_1b').value.trim() || 'жауап жоқ';
+        const w2_2a = document.getElementById('w2_2a').value.trim() || 'жауап жоқ';
+        const w2_2b = document.getElementById('w2_2b').value.trim() || 'жауап жоқ';
+        report += "\n2-АПТА:\n";
+        report += "Жағдаят1 - Әділ ме? " + w2_1a + "\n";
+        report += "Жағдаят1 - Әділ шешім: " + w2_1b + "\n";
+        report += "Жағдаят2 - Қандай жауапкершілік? " + w2_2a + "\n";
+        report += "Жағдаят2 - Дұрыс әрекет: " + w2_2b + "\n";
+
+        // 3-апта
+        const w3_1 = document.getElementById('w3_1').value.trim() || 'жауап жоқ';
+        const w3_2_1 = document.getElementById('w3_2_1').value.trim() || 'жауап жоқ';
+        const w3_2_2 = document.getElementById('w3_2_2').value.trim() || 'жауап жоқ';
+        const w3_2_3 = document.getElementById('w3_2_3').value.trim() || 'жауап жоқ';
+        const w3_2_4 = document.getElementById('w3_2_4').value.trim() || 'жауап жоқ';
+        report += "\n3-АПТА:\n";
+        report += "Жауапкершілік декларациясы: " + w3_1 + "\n";
+        report += "Құндылық: " + w3_2_1 + "\n";
+        report += "Қолдану: " + w3_2_2 + "\n";
+        report += "Химиядағы әрекеттер: " + w3_2_3 + "\n";
+        report += "Өзіңді жауапкершіл санайсың ба? " + w3_2_4 + "\n";
+
+        // 4-апта
+        const w4_1a = document.getElementById('w4_1a').value.trim() || 'жауап жоқ';
+        const w4_1b = document.getElementById('w4_1b').value.trim() || 'жауап жоқ';
+        const w4_2a = document.getElementById('w4_2a').value.trim() || 'жауап жоқ';
+        const w4_2b = document.getElementById('w4_2b').value.trim() || 'жауап жоқ';
+        report += "\n4-АПТА:\n";
+        report += "Сынақтағы сын - әрекет: " + w4_1a + "\n";
+        report += "Себебі: " + w4_1b + "\n";
+        report += "Топтық жұмыс - әділдікті талап ету: " + w4_2a + "\n";
+        report += "Себебі: " + w4_2b + "\n";
+
+        // WhatsApp
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+<!-- Барлық жауаптар жиналып, WhatsApp-қа жіберіледі -->
+</body>
+</html>

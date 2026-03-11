@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Қаңтар – Заң және тәртіп айы</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin: 20px 0 10px;
+        }
+
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .check-btn, .reset-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+        .reset-btn {
+            background: #ffcc99;
+            box-shadow: 0 0 20px #ffaa66;
+        }
+        .check-btn:hover, .reset-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+        .result-message {
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .correct { background: #ccffcc; }
+        .incorrect { background: #ffcccc; }
+
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,240,0.8);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 15px 0;
+            box-shadow: 0 0 15px white;
+        }
+        th, td {
+            border: 2px solid white;
+            padding: 15px;
+            text-align: left;
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+        th {
+            background: #ffcc99;
+            text-align: center;
+        }
+        .radio-option {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .radio-option label {
+            margin-right: 15px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Ай және апта атауы -->
+    <div class="title">Қаңтар айы – Заң және тәртіп айы</div>
+    
+    <!-- ========== 1-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">1-апта: Апта дәйексөзі «Талап бар жерде тәртіп бар»</div>
+        
+        <div class="task-header">1-тапсырма: "ТАЛАПТАН ТӘРТІПКЕ" ойыны</div>
+        <div class="card">
+            <div class="question-text">Ойынның мақсаты</div>
+            <p>Оқушылардың химия кабинетіндегі басты талаптарды білуін тексеру және әр талаптың орындалуы тәртіпке әкелетінін көрсету.</p>
+            <div class="question-text">Ойынның міндеттері</div>
+            <ul style="margin-left:20px;">
+                <li>Химия кабинетіндегі 3 негізгі талапты ажырату</li>
+                <li>Әр заттың қай талапқа қатысты екенін анықтау</li>
+                <li>Жауап беру жылдамдығын дамыту</li>
+                <li>Топтық жұмыс дағдысын қалыптастыру</li>
+            </ul>
+        </div>
+
+        <div class="task-header">2-тапсырма: «Тәртіп формуласы»</div>
+        <div class="card">
+            <p><strong>Ойын мақсаты:</strong> Оқушыларға химия кабинетіндегі әрбір іс-әрекеттің өз талабы (ережесі) бар екенін, сол талаптардың орындалуы тәртіпке, ал тәртіп қауіпсіздік пен сапалы білімге әкелетінін түсіндіру.</p>
+        </div>
+    </div>
+
+    <!-- ========== 2-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі «Тәртіп - тәрбие бастауы»</div>
+
+        <div class="task-header">1-тапсырма: Тәртіп оқушы қандай оқушы деп ойлайсын?</div>
+        <div class="iframe-container" style="display:flex; justify-content:center;">
+            <iframe style="max-width:100%" src="https://wordwall.net/ru/embed/9ecc349435a0485dab8ae58dccc16ce7?themeId=1&templateId=3&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="task-header">2-тапсырма: «Тәрбие мектебі»</div>
+        <div class="card">
+            <div class="question-text">Ойын мақсаты:</div>
+            <p>Оқушыларға тәртіптің тәрбиенің негізі екенін, әрбір іс-әрекетте тәртіп сақтау арқылы өз бойында ізгі қасиеттерді қалыптастыруға болатынын түсіндіру.</p>
+            <p><strong>Шарты:</strong> Мұғалім түрлі жағдаяттарды айтады. Оқушылар бұл жағдаят «тәртіпке» жата ма, «тәрбиеге» жата ма, соны анықтайды.</p>
+        </div>
+    </div>
+
+    <!-- ========== 3-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі «Әділ заң - аспан тірегі»</div>
+
+        <div class="task-header">1-тапсырма: «Заңды анықта» (жылдам сұрақ-жауап)</div>
+        <div class="card">
+            <p><strong>Шарты:</strong> Мұғалім түрлі жағдаяттарды айтады. Оқушылар бұл жағдайдың «заңға сәйкес» пе, «заң бұзушылық» па, соны анықтайды.</p>
+        </div>
+
+        <!-- Бұл жерде «Химиялық табандылық» (берілген мәтін бойынша) -->
+        <div class="task-header">2-тапсырма: «ХИМИЯЛЫҚ ТАБАНДЫЛЫҚ»</div>
+        <div class="card">
+            <div class="task-goal">
+                <strong>Тапсырма мақсаты:</strong> Төмендегі жағдаяттарды оқып, әрқайсысына жауап бер. Әділдіктен таймау үшін қалай әрекет ету керек?<br>
+                <strong>Оқушыға қалыптастыратын құндылығы:</strong>
+                • Әділдікте берік болу – химиялық байланыстар сияқты мықты болу<br>
+                • Тұрақтылық – қиындықтарға қарамастан өз қағидаларынан ауытқымау<br>
+                • Сенімділік – берік әділдіктің адамды сүріндірмейтіні
+            </div>
+            <div class="question-text">Жағдаят 1: «Сынақтағы сын»</div>
+            <p>Сен химиядан сынақ тапсырып жатырсың. Досың сыбырлап жауап сұрап жатыр. Егер оған көмектеспесең, ол ренжіді. Бірақ егер көмектессең, бұл әділетсіздік болады.</p>
+            <div class="question-text">Сенің әрекетің қандай? Әділдікте берік бола аласың ба?</div>
+            <textarea id="w3_action" class="answer-area" rows="2" placeholder="Жауабы..."></textarea>
+            <div class="question-text">Себебі:</div>
+            <textarea id="w3_reason" class="answer-area" rows="2" placeholder="Себебі..."></textarea>
+        </div>
+    </div>
+
+    <!-- ========== 4-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Апта дәйексөзі «Тәртіпсіз ел болмайды»</div>
+
+        <div class="task-header">1-тапсырма: «TARTIP LAND» (виртуалды әлем)</div>
+        <div class="card">
+            <div class="question-text">Мақсаты:</div>
+            <p>Оқушыларға тәртіптің жеке адамнан басталып, бүкіл елдің дамуына әсер ететінін, тәртіпсіздік елдің әлсіреуіне әкелетінін түсіндіру.</p>
+            <p><strong>Мұғалім:</strong> "Балалар, біз бүгін «Тәртіп патрулі» ойынын ойнаймыз. Экранда сіздерге түрлі жағдаяттар көрсетіледі. Сендер сол жағдаяттың «тәртіпті ме, әлде тәртіпсіздік пе» екенін анықтауларың керек."</p>
+        </div>
+
+        <div class="task-header">2-тапсырма: Экранда төмендегі көрсетілген талданыз?</div>
+        <div class="card">
+            <table id="tartipTable">
+                <tr><th>№</th><th>Сурет / Жағдаят</th><th>Таңдау (тәртіп / тәртіпсіздік)</th></tr>
+                <tr><td>1</td><td>Оқушы Мектеп Формасында</td><td><div class="radio-option"><label><input type="radio" name="row1" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row1" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>2</td><td>Оқушы Сабақта Ұйықтап Отыр</td><td><div class="radio-option"><label><input type="radio" name="row2" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row2" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>3</td><td>Балалар Кезекпен Автобусқа Отырады</td><td><div class="radio-option"><label><input type="radio" name="row3" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row3" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>4</td><td>Бала Қоқысты Көшеге Тастайды</td><td><div class="radio-option"><label><input type="radio" name="row4" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row4" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>5</td><td>Оқушы Мұғаліммен Амандасады</td><td><div class="radio-option"><label><input type="radio" name="row5" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row5" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>6</td><td>Балалар Кітапханада Шулап Отыр</td><td><div class="radio-option"><label><input type="radio" name="row6" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row6" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>7</td><td>Оқушы Үй Тапсырмасын Орындайды</td><td><div class="radio-option"><label><input type="radio" name="row7" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row7" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+                <tr><td>8</td><td>Бала Жолдан Қызыл Түсте Өтеді</td><td><div class="radio-option"><label><input type="radio" name="row8" value="тәртіп"> ТӘРТІП</label><label><input type="radio" name="row8" value="тәртіпсіздік"> ТӘРТІПСІЗДІК</label></div></td></tr>
+            </table>
+            <div class="button-group">
+                <button class="check-btn" id="checkTartip">Тексеру</button>
+                <button class="reset-btn" id="resetTartip">Қайтадан бастау</button>
+            </div>
+            <div id="tartipResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    // 4-апта таблицасын тексеру
+    document.getElementById('checkTartip').addEventListener('click', function() {
+        // Дұрыс жауаптар массиві
+        const correct = ['тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік'];
+        let score = 0;
+        for (let i = 1; i <= 8; i++) {
+            const radios = document.getElementsByName('row' + i);
+            let selected = null;
+            for (let r of radios) {
+                if (r.checked) {
+                    selected = r.value;
+                    break;
+                }
+            }
+            if (selected === correct[i-1]) {
+                score++;
+            }
+        }
+        const resultDiv = document.getElementById('tartipResult');
+        if (score === 8) {
+            resultDiv.innerHTML = '✅ Барлық жауап дұрыс!';
+            resultDiv.className = 'result-message correct';
+        } else {
+            resultDiv.innerHTML = `❌ ${score} / 8 дұрыс. Қайта тексеріңіз.`;
+            resultDiv.className = 'result-message incorrect';
+        }
+    });
+
+    document.getElementById('resetTartip').addEventListener('click', function() {
+        for (let i = 1; i <= 8; i++) {
+            const radios = document.getElementsByName('row' + i);
+            for (let r of radios) {
+                r.checked = false;
+            }
+        }
+        document.getElementById('tartipResult').innerHTML = '';
+    });
+
+    // Жіберу кнопкасы
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        let report = "==== ҚАҢТАР АЙЫ ЕСЕБІ ====\n";
+
+        // 3-апта: Химиялық табандылық
+        const w3_action = document.getElementById('w3_action').value.trim() || 'жауап жоқ';
+        const w3_reason = document.getElementById('w3_reason').value.trim() || 'себеп жоқ';
+        report += "\n3-АПТА: Химиялық табандылық\n";
+        report += "  Жағдаят 1 – әрекет: " + w3_action + "\n";
+        report += "  Себебі: " + w3_reason + "\n";
+
+        // 4-апта таблица
+        const correctLabels = ['тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік', 'тәртіп', 'тәртіпсіздік'];
+        report += "\n4-АПТА: Тәртіп/тәртіпсіздік таңдаулары\n";
+        for (let i = 1; i <= 8; i++) {
+            const radios = document.getElementsByName('row' + i);
+            let selected = 'таңдалмады';
+            for (let r of radios) {
+                if (r.checked) {
+                    selected = r.value;
+                    break;
+                }
+            }
+            report += `  Жағдаят ${i}: ${selected}\n`;
+        }
+
+        // WhatsApp
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+</body>
+</html>

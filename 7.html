@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | Наурыз – Тәуелсіздік және отаншылдық айы</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 25px;
+        }
+
+        .task-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #442266;
+            text-shadow: 0 0 5px #ffcc99;
+            margin: 30px 0 10px;
+        }
+
+        .task-goal {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 200, 0.5);
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid white;
+            margin-bottom: 30px;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(255,255,240,0.6);
+        }
+
+        .week-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #1e3c5c;
+            background: rgba(255,255,200,0.5);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3e50;
+            margin: 20px 0 10px;
+        }
+
+        .answer-area {
+            width: 100%;
+            border-radius: 30px;
+            border: 3px solid white;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,240,0.7);
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .check-btn, .reset-btn, .reveal-btn {
+            border: 3px solid white;
+            border-radius: 40px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            box-shadow: 0 0 20px #66aaff;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #99ccff;
+        }
+
+        .reset-btn {
+            background: #ffcc99;
+            box-shadow: 0 0 20px #ffaa66;
+        }
+        .reveal-btn {
+            background: #b5e6b5;
+            box-shadow: 0 0 20px #88dd88;
+        }
+
+        .check-btn:hover, .reset-btn:hover, .reveal-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 30px;
+            background: #ffeedd;
+            border: 2px solid white;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .correct {
+            background: #ccffcc !important;
+            border: 3px solid #00aa00 !important;
+        }
+        .incorrect {
+            background: #ffcccc !important;
+            border: 3px solid #cc0000 !important;
+        }
+
+        /* drag & drop стильдері */
+        .match-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,240,0.7);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .match-table th, .match-table td {
+            border: 2px solid white;
+            padding: 15px;
+            text-align: left;
+        }
+        .match-table th {
+            background: #ffcc99;
+            text-align: center;
+        }
+        .match-dropzone {
+            min-width: 80px;
+            min-height: 50px;
+            background: rgba(220, 240, 255, 0.5);
+            border-radius: 30px;
+            border: 2px dashed #aaaaff;
+            display: inline-block;
+            text-align: center;
+            padding: 10px;
+            color: #333;
+            width: 100%;
+        }
+        .drag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            background: rgba(255,255,240,0.3);
+            border-radius: 60px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .drag-item {
+            padding: 12px 25px;
+            background: #ffd966;
+            border-radius: 40px;
+            border: 3px solid white;
+            font-weight: bold;
+            color: #2d3e50;
+            box-shadow: 0 0 15px #ffffaa;
+            cursor: grab;
+            user-select: none;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .drag-item:active {
+            cursor: grabbing;
+            opacity: 0.8;
+        }
+        .match-dropzone.correct-drop {
+            background: #b5e6b5 !important;
+            border-color: #00aa00 !important;
+        }
+        .match-dropzone.incorrect-drop {
+            background: #f8b5b5 !important;
+            border-color: #cc0000 !important;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: rgba(255,255,240,0.6);
+            padding: 15px;
+            border-radius: 40px;
+            border: 2px solid white;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,200,0.7);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .send-btn {
+            display:block; 
+            margin:40px auto; 
+            padding:15px 40px; 
+            font-size:1.8rem; 
+            background:#ffcc99; 
+            border:4px solid white; 
+            border-radius:60px; 
+            box-shadow:0 0 30px #ffaa66; 
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .send-btn:hover {
+            transform:scale(1.02);
+            filter:brightness(1.05);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">Наурыз айы – Тәуелсіздік және отаншылдық айы</div>
+
+    <!-- ========== 1-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">1-апта: Апта дәйексөзі «Патриотизм - ата анаңды құрметтей білуің...» Бауыржан Момышұлы</div>
+
+        <!-- 1-тапсырма: жұмбақ -->
+        <div class="task-header">1-тапсырма: "Ата-ана Өсиеті - Тазалық" (Жұмбақ)</div>
+        <div class="card">
+            <div class="question-text">Жұмбақ:</div>
+            <p style="font-size:1.2rem;">"Мен тіршілік көзімін,<br>Менсіз өмір сүре алмассың.<br>Менің формулам – H₂O,<br>Мені құрметтемесең, құрдымға кетерсің".</p>
+            <div class="button-group">
+                <button class="reveal-btn" id="revealRiddle">Жауабын білу</button>
+            </div>
+            <div id="riddleAnswer" style="display:none; background:#e0f0ff; border-radius:30px; padding:15px; margin-top:15px; border:3px solid white; font-size:1.5rem; text-align:center;">
+                Жауабы: Қатты – мұз, сұйық – су, газ – бу
+            </div>
+        </div>
+
+        <!-- 2-тапсырма: көп таңдау -->
+        <div class="task-header">2-тапсырма: "Қоршаған ортаны қорғау"</div>
+        <div class="card">
+            <div class="question-text">Қоршаған ортаны қорғау үшін химия өнеркәсібінде қандай шаралар қолданылады? Дұрыс нұсқаларды таңдаңыз.</div>
+            <div class="checkbox-group" id="envCheckbox">
+                <label><input type="checkbox" value="A"> A) Зауыт мұржаларына сүзгілер орнату</label>
+                <label><input type="checkbox" value="B"> B) Қалдықтарды өзенге төгу</label>
+                <label><input type="checkbox" value="C"> C) Өндіріс қалдықтарын қайта өңдеу</label>
+                <label><input type="checkbox" value="D"> D) Пластмассаны жағып жіберу</label>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkEnv">Тексеру</button>
+                <button class="reset-btn" id="resetEnv">Қайталау</button>
+            </div>
+            <div id="envResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- ========== 2-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">2-апта: Апта дәйексөзі «Тәуелсіздік - тәтті сөз ғана емес, ұлттық жауапкершілік»</div>
+
+        <!-- 1-тапсырма: элементтер пайызы (сәйкестендіру) -->
+        <div class="task-header">1-тапсырма: Адам ағзасындағы элементтердің пайыздық мөлшерін сәйкестендір.</div>
+        <div class="card">
+            <table class="match-table" id="elementTable">
+                <tr><th>Элемент</th><th>Пайыздық мөлшері</th></tr>
+                <tr><td>Оттек (O)</td><td><div class="match-dropzone" id="elemDrop1" data-expected="65%"></div></td></tr>
+                <tr><td>Көміртек (C)</td><td><div class="match-dropzone" id="elemDrop2" data-expected="18%"></div></td></tr>
+                <tr><td>Сутек (H)</td><td><div class="match-dropzone" id="elemDrop3" data-expected="10%"></div></td></tr>
+                <tr><td>Азот (N)</td><td><div class="match-dropzone" id="elemDrop4" data-expected="3%"></div></td></tr>
+                <tr><td>Кальций (Ca)</td><td><div class="match-dropzone" id="elemDrop5" data-expected="1.5%"></div></td></tr>
+                <tr><td>Фосфор (P)</td><td><div class="match-dropzone" id="elemDrop6" data-expected="1%"></div></td></tr>
+            </table>
+            <div class="drag-container" id="elemDragContainer">
+                <div class="drag-item" draggable="true" data-value="65%">65%</div>
+                <div class="drag-item" draggable="true" data-value="18%">18%</div>
+                <div class="drag-item" draggable="true" data-value="10%">10%</div>
+                <div class="drag-item" draggable="true" data-value="3%">3%</div>
+                <div class="drag-item" draggable="true" data-value="1.5%">1.5%</div>
+                <div class="drag-item" draggable="true" data-value="1%">1%</div>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkElemMatch">Тексеру</button>
+                <button class="reset-btn" id="resetElemMatch">Қайта бастау</button>
+            </div>
+            <div id="elemMatchResult" class="result-message"></div>
+        </div>
+
+        <!-- 2-тапсырма: Қазақы тағам -->
+        <div class="task-header">2-тапсырма: "ҚАЗАҚСТАНДЫҚ ТАҒАМ – ҰЛТТЫҚ ҚҰНДЫЛЫҚ" (Дүкен ойыны)</div>
+        <div class="card">
+            <table class="match-table" id="foodTable">
+                <tr><th>Тағам</th><th>Элемент</th><th>Таңдау себебі</th></tr>
+                <tr><td>Қымыз</td><td><div class="match-dropzone" id="foodDrop1" data-expected="Кальций, калий"></div></td><td><div class="match-dropzone" id="reasonDrop1" data-expected="Қымыз ішемін – сүйегім берік, ата-бабамның дәстүрін жалғаймын"></div></td></tr>
+                <tr><td>Ет (қазы)</td><td><div class="match-dropzone" id="foodDrop2" data-expected="Темір, мырыш"></div></td><td><div class="match-dropzone" id="reasonDrop2" data-expected="Қазы жеймін – қаным таза, атамның жолын қуамын"></div></td></tr>
+                <tr><td>Бал</td><td><div class="match-dropzone" id="foodDrop3" data-expected="Магний, калий"></div></td><td><div class="match-dropzone" id="reasonDrop3" data-expected="Бал жеймін – денім сау, Отанымның тәтті өнімін қолдаймын"></div></td></tr>
+                <tr><td>Сүт</td><td><div class="match-dropzone" id="foodDrop4" data-expected="Кальций"></div></td><td><div class="match-dropzone" id="reasonDrop4" data-expected="Сүт ішемін – тісім берік, ауылымның тірлігін сақтаймын"></div></td></tr>
+                <tr><td>Алма (Алматы)</td><td><div class="match-dropzone" id="foodDrop5" data-expected="Темір"></div></td><td><div class="match-dropzone" id="reasonDrop5" data-expected="Алма жеймін – қаным түзеледі, Алматымның маржанын аялаймын"></div></td></tr>
+            </table>
+
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="flex:1;">
+                    <h4>Элементтер</h4>
+                    <div class="drag-container" id="foodDragElements">
+                        <div class="drag-item" draggable="true" data-value="Кальций, калий">Кальций, калий</div>
+                        <div class="drag-item" draggable="true" data-value="Темір, мырыш">Темір, мырыш</div>
+                        <div class="drag-item" draggable="true" data-value="Магний, калий">Магний, калий</div>
+                        <div class="drag-item" draggable="true" data-value="Кальций">Кальций</div>
+                        <div class="drag-item" draggable="true" data-value="Темір">Темір</div>
+                    </div>
+                </div>
+                <div style="flex:1;">
+                    <h4>Себептер</h4>
+                    <div class="drag-container" id="foodDragReasons">
+                        <div class="drag-item" draggable="true" data-value="Қымыз ішемін – сүйегім берік, ата-бабамның дәстүрін жалғаймын">Қымыз себебі</div>
+                        <div class="drag-item" draggable="true" data-value="Қазы жеймін – қаным таза, атамның жолын қуамын">Қазы себебі</div>
+                        <div class="drag-item" draggable="true" data-value="Бал жеймін – денім сау, Отанымның тәтті өнімін қолдаймын">Бал себебі</div>
+                        <div class="drag-item" draggable="true" data-value="Сүт ішемін – тісім берік, ауылымның тірлігін сақтаймын">Сүт себебі</div>
+                        <div class="drag-item" draggable="true" data-value="Алма жеймін – қаным түзеледі, Алматымның маржанын аялаймын">Алма себебі</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-text">Неге мен қазақы тағамды таңдаймын?</div>
+            <textarea id="foodReason" class="answer-area" rows="3" placeholder="Жауабыңыз..."></textarea>
+
+            <div class="button-group">
+                <button class="check-btn" id="checkFoodMatch">Тексеру</button>
+                <button class="reset-btn" id="resetFoodMatch">Қайта бастау</button>
+            </div>
+            <div id="foodMatchResult" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- ========== 3-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">3-апта: Апта дәйексөзі «Ар-намыс қана тәуелсіздікке тірек бола алады»</div>
+        <div class="task-header">1-тапсырма: «КЕЗДЕЙСОҚ КАРТАЛАР»</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/embed/364e261ed88e49bda3436a5d6aa2014a?themeId=42&templateId=70&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="task-header">2-тапсырма: «Wordwoll» платформасы арқылы сұрақтарға жауап береді?</div>
+        <div class="iframe-container">
+            <iframe style="max-width:100%" src="https://wordwall.net/embed/8d67779b828d481cbe6a2d05f94b7eb2?themeId=1&templateId=5&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ========== 4-АПТА ========== -->
+    <div class="week-block">
+        <div class="week-quote">4-апта: Апта дәйексөзі «Патриотизмі жоқ халық жаны жоқ тәнмен тең»</div>
+        <div class="task-header">1-тапсырма: «ХИМИЯЛЫҚ АЙНА» (Кім жылдам?)</div>
+        <div class="card" style="text-align:center; padding:40px;">
+            <p style="font-size:1.5rem;">🔄 Интерактивті тапсырма (ойын сабақта өтеді)</p>
+        </div>
+        <div class="task-header">2-тапсырма: «БОЛМЫСЫҢДЫ ТАНЫТ» (Химиялық ребус)</div>
+        <div class="card" style="text-align:center; padding:40px;">
+            <p style="font-size:1.5rem;">🧩 Ребусты шешіңіз (тапсырма ауызша)</p>
+        </div>
+    </div>
+
+    <!-- Жіберу кнопкасы -->
+    <button class="send-btn" id="sendBtn">Жіберу</button>
+</div>
+
+<script>
+    // ----- Жалпы drag-and-drop баптаулары -----
+    let draggedElement = null;
+
+    function handleDragStart(e) {
+        draggedElement = this;
+        e.dataTransfer.setData('text/plain', this.dataset.value || this.innerText);
+        this.style.opacity = '0.5';
+    }
+
+    function handleDragEnd(e) {
+        this.style.opacity = '1';
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        if (!draggedElement) return;
+        const dropZone = e.target.closest('.match-dropzone');
+        if (!dropZone) return;
+        dropZone.innerText = draggedElement.dataset.value || draggedElement.innerText;
+        // Элементті жасырмаймыз (көшірме ретінде)
+        draggedElement.style.opacity = '1';
+        draggedElement = null;
+    }
+
+    // Барлық drag-item және dropzone баптау
+    document.querySelectorAll('.drag-item').forEach(item => {
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
+    });
+    document.querySelectorAll('.match-dropzone').forEach(zone => {
+        zone.addEventListener('dragover', handleDragOver);
+        zone.addEventListener('drop', handleDrop);
+    });
+
+    // ----- 1-апта: жұмбақ -----
+    document.getElementById('revealRiddle').addEventListener('click', function() {
+        document.getElementById('riddleAnswer').style.display = 'block';
+    });
+
+    // ----- 1-апта: экология (checkbox) -----
+    document.getElementById('checkEnv').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('#envCheckbox input[type="checkbox"]');
+        let selected = [];
+        checkboxes.forEach(cb => {
+            if (cb.checked) selected.push(cb.value);
+            // таңбаларды тазалау
+            cb.parentElement.classList.remove('correct', 'incorrect');
+        });
+        // дұрыс жауаптар A және C
+        const correct = ['A', 'C'];
+        // егер таңдалған дұрыс болса, жасыл; егер таңдалған бұрыс болса, қызыл
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                if (correct.includes(cb.value)) {
+                    cb.parentElement.classList.add('correct');
+                } else {
+                    cb.parentElement.classList.add('incorrect');
+                }
+            }
+        });
+        // барлық дұрыс жауаптарды да көрсету? (міндетті емес)
+        let result = document.getElementById('envResult');
+        let selectedVals = selected.join(', ');
+        let isAllCorrect = selected.every(val => correct.includes(val)) && selected.length === correct.length;
+        if (isAllCorrect) {
+            result.innerHTML = '✅ Дұрыс! A және C таңдалды.';
+            result.style.background = '#ccffcc';
+        } else {
+            result.innerHTML = '❌ Қате. Дұрыс жауаптар: A және C.';
+            result.style.background = '#ffcccc';
+        }
+    });
+
+    document.getElementById('resetEnv').addEventListener('click', function() {
+        document.querySelectorAll('#envCheckbox input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.parentElement.classList.remove('correct', 'incorrect');
+        });
+        document.getElementById('envResult').innerHTML = '';
+    });
+
+    // ----- 2-апта: элементтер пайызы -----
+    function checkMatch(tableId, resultDivId, expectedMap) {
+        let correct = 0;
+        const drops = document.querySelectorAll(`#${tableId} .match-dropzone`);
+        drops.forEach(drop => {
+            const expected = drop.dataset.expected;
+            const actual = drop.innerText.trim();
+            drop.classList.remove('correct-drop', 'incorrect-drop');
+            if (actual === expected) {
+                correct++;
+                drop.classList.add('correct-drop');
+            } else {
+                drop.classList.add('incorrect-drop');
+            }
+        });
+        const resultDiv = document.getElementById(resultDivId);
+        if (correct === drops.length) {
+            resultDiv.innerHTML = '✅ Барлығы дұрыс!';
+            resultDiv.style.background = '#ccffcc';
+        } else {
+            resultDiv.innerHTML = `❌ ${correct} / ${drops.length} дұрыс.`;
+            resultDiv.style.background = '#ffcccc';
+        }
+    }
+
+    document.getElementById('checkElemMatch').addEventListener('click', function() {
+        checkMatch('elementTable', 'elemMatchResult');
+    });
+
+    document.getElementById('resetElemMatch').addEventListener('click', function() {
+        document.querySelectorAll('#elementTable .match-dropzone').forEach(z => {
+            z.innerText = '';
+            z.classList.remove('correct-drop', 'incorrect-drop');
+        });
+        document.getElementById('elemMatchResult').innerHTML = '';
+    });
+
+    // ----- 2-апта: тағам сәйкестендіру -----
+    document.getElementById('checkFoodMatch').addEventListener('click', function() {
+        // тексереміз foodDrop1..5 және reasonDrop1..5
+        let correct = 0;
+        const total = 10; // 5 элемент + 5 себеп
+        for (let i = 1; i <= 5; i++) {
+            const foodDrop = document.getElementById('foodDrop' + i);
+            const reasonDrop = document.getElementById('reasonDrop' + i);
+            [foodDrop, reasonDrop].forEach(drop => {
+                const expected = drop.dataset.expected;
+                const actual = drop.innerText.trim();
+                drop.classList.remove('correct-drop', 'incorrect-drop');
+                if (actual === expected) {
+                    correct++;
+                    drop.classList.add('correct-drop');
+                } else {
+                    drop.classList.add('incorrect-drop');
+                }
+            });
+        }
+        const resultDiv = document.getElementById('foodMatchResult');
+        if (correct === total) {
+            resultDiv.innerHTML = '✅ Барлық жұп дұрыс!';
+            resultDiv.style.background = '#ccffcc';
+        } else {
+            resultDiv.innerHTML = `❌ ${correct} / ${total} дұрыс.`;
+            resultDiv.style.background = '#ffcccc';
+        }
+    });
+
+    document.getElementById('resetFoodMatch').addEventListener('click', function() {
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('foodDrop' + i).innerText = '';
+            document.getElementById('reasonDrop' + i).innerText = '';
+            document.getElementById('foodDrop' + i).classList.remove('correct-drop', 'incorrect-drop');
+            document.getElementById('reasonDrop' + i).classList.remove('correct-drop', 'incorrect-drop');
+        }
+        document.getElementById('foodReason').value = '';
+        document.getElementById('foodMatchResult').innerHTML = '';
+    });
+
+    // ----- Жіберу -----
+    document.getElementById('sendBtn').addEventListener('click', function() {
+        let report = "==== НАУРЫЗ АЙЫ ЕСЕБІ ====\n\n";
+
+        // 1-апта: экология таңдаулары
+        let envSelected = [];
+        document.querySelectorAll('#envCheckbox input[type="checkbox"]:checked').forEach(cb => {
+            envSelected.push(cb.value);
+        });
+        report += "1-апта 2-тапсырма (экология): " + (envSelected.length ? envSelected.join(', ') : 'таңдалмады') + "\n";
+
+        // 2-апта элемент пайызы
+        let elemMatches = [];
+        for (let i = 1; i <= 6; i++) {
+            let drop = document.getElementById('elemDrop' + i);
+            let val = drop.innerText.trim() || '(бос)';
+            elemMatches.push(val);
+        }
+        report += "\n2-апта 1-тапсырма (элемент пайыздары):\n";
+        report += `  O: ${elemMatches[0]}, C: ${elemMatches[1]}, H: ${elemMatches[2]}, N: ${elemMatches[3]}, Ca: ${elemMatches[4]}, P: ${elemMatches[5]}\n`;
+
+        // 2-апта тағам
+        report += "\n2-апта 2-тапсырма (тағам сәйкестендіру):\n";
+        for (let i = 1; i <= 5; i++) {
+            let food = document.getElementById('foodDrop' + i).innerText.trim() || '(бос)';
+            let reason = document.getElementById('reasonDrop' + i).innerText.trim() || '(бос)';
+            let foodName = ['Қымыз', 'Ет (қазы)', 'Бал', 'Сүт', 'Алма'][i-1];
+            report += `  ${foodName}: элемент=${food}, себеп=${reason}\n`;
+        }
+        let userReason = document.getElementById('foodReason').value.trim() || '(бос)';
+        report += `\nНеге қазақы тағамды таңдаймын? ${userReason}\n`;
+
+        const phone = "77029753937";
+        const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(report);
+        window.open(url, '_blank');
+    });
+</script>
+</body>
+</html>

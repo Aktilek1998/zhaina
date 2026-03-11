@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адал азамат | ҚМЖ Химия</title>
+    <style>
+        /* === Жалпы стильдер === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f9ff 0%, #f5f0ff 100%);
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        /* Химиялық декор */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(180, 220, 255, 0.2) 0px, rgba(180, 220, 255, 0.2) 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 70% 20%, rgba(255, 200, 150, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(200, 150, 255, 0.15) 0%, transparent 35%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border: 2px solid white;
+            margin: 20px 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2d3e50;
+            text-shadow: 0 0 10px #ffaa66, 0 0 20px #66ccff, 2px 2px 0 #ff99aa, -2px -2px 0 #aaff99;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            color: #335;
+            background: rgba(255,255,240,0.6);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: inset 0 0 10px white;
+            margin-bottom: 40px;
+        }
+
+        /* === Әр блок жеке жолға === */
+        .blocks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 900px; /* кеңірек, себебі әр блок жеке жолда */
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 50px 30px 50px 30px;
+            border: 3px solid white;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 15px white;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 40px #ffffaa;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #335;
+            text-shadow: 0 0 5px #ffdd99;
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid white;
+        }
+
+        /* Google Drive ендірмесіне арналған контейнер */
+        .gdrive-embed {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 30px 20px 30px 20px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 200, 0.8);
+            border: 2px solid white;
+            background: #e8e0ff;
+        }
+
+        .gdrive-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Адаптация */
+        @media (max-width: 700px) {
+            .title { font-size: 1.8rem; }
+            .subtitle { font-size: 1.2rem; }
+            .card h2 { font-size: 1.5rem; }
+            .gdrive-embed { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Қысқа мерзімдік жоспарлар (ҚМЖ)</div>
+        <div class="subtitle">Химия | 7-9 сыныптар</div>
+
+        <div class="blocks">
+            <!-- 7-сынып -->
+            <div class="card">
+                <h2>7-сынып</h2>
+                <div class="gdrive-embed">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1maZaBFTs8p3mAcv68Ylfpc3-lrDS9nK8#grid" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- 8-сынып -->
+            <div class="card">
+                <h2>8-сынып</h2>
+                <div class="gdrive-embed">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1-JfwC2QrSPc3I9F7lFSZomki8nuaxFiY#grid" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- 9-сынып -->
+            <div class="card">
+                <h2>9-сынып</h2>
+                <div class="gdrive-embed">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1xameJFf-x4Gpa332V2mFgTBUk--faVmi#grid" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #2d3e50; background: rgba(255,255,240,0.6); padding: 12px; border-radius: 50px; border: 2px solid white; margin-top: 20px;">
+            Химия пәнінен қысқа мерзімді жоспарлар жинағы
+        </div>
+    </div>
+</body>
+</html>
